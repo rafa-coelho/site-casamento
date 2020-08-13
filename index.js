@@ -8,6 +8,20 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+const fs = require("fs");
+const directories = ["System", "classes"];
+directories.forEach(dir => {
+    try {
+        const files = fs.readdirSync(dir);
+        files.forEach(function (file) {
+            const Class = require(`./${dir}/${file}`);
+            global[file.split(".")[0]] = Class;
+        });
+    } catch (e) {
+        console.log(e);
+    }
+});
+
 consign().include('controllers').into(app);
 
 app.listen(3333, () => {
