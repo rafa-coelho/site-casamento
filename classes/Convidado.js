@@ -4,4 +4,4 @@ class Convidado extends Classes
     static fields = [ 'id', 'code', 'nome', 'email', 'whatsapp', 'quantidade', 'padrinho', 'confirmado' ];
 }
 
-module.export = Convidado;
+module.exports = Convidado;
