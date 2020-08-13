@@ -1,0 +1,116 @@
+{
+    "categorias": [
+        {
+            "name": "sala",
+            "label": "Sala",
+            "produtos": [
+                {
+                    "name": "Sofá",
+                    "value": 0.00
+                },
+                {
+                    "name": "Televisão",
+                    "value": 0.00
+                },
+                {
+                    "name": "Home Theater",
+                    "value": 0.00
+                },
+                {
+                    "name": "Rack",
+                    "value": 0.00
+                },
+                {
+                    "name": "Sofá",
+                    "value": 0.00
+                },
+                {
+                    "name": "Mesa de Centro",
+                    "value": 0.00
+                }
+            ]
+        },
+        {
+            "name": "quarto",
+            "label": "Cama Mesa e Banho",
+            "produtos": [
+                {
+                    "name": "Guarda Roupas",
+                    "value": 0.00
+                },
+                {
+                    "name": "Cama",
+                    "value": 0.00
+                },
+                {
+                    "name": "Cômoda",
+                    "value": 0.00
+                },
+                {
+                    "name": "Sapateira",
+                    "value": 0.00
+                },
+                {
+                    "name": "Kit Edredom",
+                    "value": 0.00
+                }
+            ]
+        },
+        {
+            "name": "cozinha",
+            "label": "Cozinha",
+            "produtos": [
+                {
+                    "name": "Fogão",
+                    "value": 0.00
+                },
+                {
+                    "name": "Geladeira",
+                    "value": 0.00
+                },
+                {
+                    "name": "Armários",
+                    "value": 0.00
+                },
+                {
+                    "name": "Microondas",
+                    "value": 0.00
+                },
+                {
+                    "name": "Liquidificador",
+                    "value": 0.00
+                },
+                {
+                    "name": "Batedeira",
+                    "value": 0.00
+                },
+                {
+                    "name": "Cafeteira",
+                    "value": 0.00
+                }
+            ]
+        },
+        {
+            "name": "lavanderia",
+            "label": "Lavanderia",
+            "produtos": [
+                {
+                    "name": "Máquina de Lavar",
+                    "value": 0.00
+                },
+                {
+                    "name": "Centrífuga",
+                    "value": 0.00
+                }
+            ]
+        },
+        {
+            "name": "lua_de_mel",
+            "label": "Lua de Mel"
+        },
+        {
+            "name": "dinheiro",
+            "label": "Dinheiro"
+        }
+    ]
+}
