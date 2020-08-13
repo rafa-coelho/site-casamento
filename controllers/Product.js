@@ -1,33 +1,22 @@
-const json = require('../data/products.json');
-
 module.exports = (app) => {
 
-    app.get(`/product/category/:cat`, (req, res) => {
+    app.get(`/product/category/:cat`, async (req, res) => {
         const { params } = req;
         
-        const category = json.categorias.find(x => x.name === params.cat || x.label === params.cat);
+        const category = await Categoria.GetFirst(`name = '${params.cat}' OR nome_normalizado = '${params.cat}'`);
 
-        if(!category){
+        if (!category) {
             return res.status(404).send("Categoria não encontrada!");
         }
 
-        res.send(category.produtos);
+        const products = await Produto.Get(`categoria = '${category.id}'`);
+
+        res.send(products || []);
     });
 
-    app.get(`/product/:name`, (req, res) => {
+    app.get(`/product/:name`, async (req, res) => {
         const { params } = req;
-
-        const produto = json.categorias.reduce((a, b) => {
-            if(!b.produtos)
-                return a;
-
-            return [ ...a, ...b.produtos ];
-        }, []).find(x => x.name === params.name);
-
-        if(!produto){
-            return res.status(404).send("Produto não encontrado!");
-        }
-
+        const produto = await Produto.Get(`nome = '${params.name}'`);
         res.send(produto);
     });
 
