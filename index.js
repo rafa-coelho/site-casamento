@@ -24,7 +24,7 @@ directories.forEach(dir => {
 
 consign().include('controllers').into(app);
 
-app.listen(3333, () => {
+app.listen(3333, async () => {
     console.log("--------------------------------------------");
     for (let index = 0; index < 10; index++) console.log("\n");
     console.clear();
