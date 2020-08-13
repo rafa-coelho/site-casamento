@@ -5,27 +5,28 @@
             "label": "Sala",
             "produtos": [
                 {
-                    "name": "Sofá",
+                    "name": "sofa",
+                    "label": "Sofá",
                     "value": 0.00
                 },
                 {
-                    "name": "Televisão",
+                    "name": "televisao",
+                    "label": "Televisão",
                     "value": 0.00
                 },
                 {
-                    "name": "Home Theater",
+                    "name": "home_theater",
+                    "label": "Home Theater",
                     "value": 0.00
                 },
                 {
-                    "name": "Rack",
+                    "name": "rack",
+                    "label": "Rack",
                     "value": 0.00
                 },
                 {
-                    "name": "Sofá",
-                    "value": 0.00
-                },
-                {
-                    "name": "Mesa de Centro",
+                    "name": "mesa_de_centro",
+                    "label": "Mesa de Centro",
                     "value": 0.00
                 }
             ]
@@ -35,23 +36,28 @@
             "label": "Cama Mesa e Banho",
             "produtos": [
                 {
-                    "name": "Guarda Roupas",
+                    "name": "guarda_roupas",
+                    "label": "Guarda Roupas",
                     "value": 0.00
                 },
                 {
-                    "name": "Cama",
+                    "name": "cama",
+                    "label": "Cama",
                     "value": 0.00
                 },
                 {
-                    "name": "Cômoda",
+                    "name": "comoda",
+                    "label": "Cômoda",
                     "value": 0.00
                 },
                 {
-                    "name": "Sapateira",
+                    "name": "sapateira",
+                    "label": "Sapateira",
                     "value": 0.00
                 },
                 {
-                    "name": "Kit Edredom",
+                    "name": "edredom",
+                    "label": "Kit Edredom",
                     "value": 0.00
                 }
             ]
@@ -61,30 +67,37 @@
             "label": "Cozinha",
             "produtos": [
                 {
-                    "name": "Fogão",
+                    "name": "fogao",
+                    "label": "Fogão",
                     "value": 0.00
                 },
                 {
-                    "name": "Geladeira",
+                    "name": "geladeira",
+                    "label": "Geladeira",
                     "value": 0.00
                 },
                 {
-                    "name": "Armários",
+                    "name": "armarios",
+                    "label": "Armários",
                     "value": 0.00
                 },
                 {
-                    "name": "Microondas",
+                    "name": "microondas",
+                    "label": "Microondas",
                     "value": 0.00
                 },
                 {
-                    "name": "Liquidificador",
+                    "name": "liquidificador",
+                    "label": "Liquidificador",
                     "value": 0.00
                 },
                 {
+                    "label": "batedeira",
                     "name": "Batedeira",
                     "value": 0.00
                 },
                 {
+                    "label": "cafeteira",
                     "name": "Cafeteira",
                     "value": 0.00
                 }
@@ -95,11 +108,13 @@
             "label": "Lavanderia",
             "produtos": [
                 {
-                    "name": "Máquina de Lavar",
+                    "name": "maquina_lavar",
+                    "label": "Máquina de Lavar",
                     "value": 0.00
                 },
                 {
-                    "name": "Centrífuga",
+                    "name": "centrifuga",
+                    "label": "Centrífuga",
                     "value": 0.00
                 }
             ]
