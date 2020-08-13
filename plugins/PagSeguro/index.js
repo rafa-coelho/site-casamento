@@ -82,7 +82,7 @@ class PagSeguro {
 
     static async ValidarCartao(cartao) {
         const pag = new PagSeguro();
-        pag.descricao = "LeadThis";
+        pag.descricao = "R&A";
         pag.Cartao(cartao);
 
         const cobranca = await pag.Cobrar(1000);
