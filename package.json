@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node .",
-    "dev": "nodemon ."
+    "dev": "nodemon .",
+    "migrate": "node ./database/migrate.js",
+    "rollback": "node ./database/rollback.js"
   },
   "author": "",
   "license": "ISC",

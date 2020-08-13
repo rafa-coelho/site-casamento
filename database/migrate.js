@@ -53,25 +53,28 @@ const migrate = async () => {
 
 const seed = async () => {
     const seedsDir = path.join(__dirname, 'seeds');
+    try{
+        const seeds = fs.readdirSync(seedsDir);
     
-    const seeds = fs.readdirSync(seedsDir);
-
-    for (const file of seeds) {
-        const seed = require(`${seedsDir}/${file}`);
-        let error = false;
-        try {
-            const exists = (await database(seed.table).whereIn('id', seed.values.map(x => x.id))).length > 0;
-            if(!exists){
-                await database(seed.table).insert(seed.values)
+        for (const file of seeds) {
+            const seed = require(`${seedsDir}/${file}`);
+            let error = false;
+            try {
+                const exists = (await database(seed.table).whereIn('id', seed.values.map(x => x.id))).length > 0;
+                if(!exists){
+                    await database(seed.table).insert(seed.values)
+                }
+                
+            } catch (E) {
+                error = true;
+                console.log(E);
             }
-            
-        } catch (E) {
-            error = true;
-            console.log(E);
+            if (!error) {
+                console.log(`Runned ${file} successfully!`);
+            }
         }
-        if (!error) {
-            console.log(`Runned ${file} successfully!`);
-        }
+    }catch(e){
+        // console.log(e)
     }
 
     console.log('Done!');
