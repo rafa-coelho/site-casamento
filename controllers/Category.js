@@ -2,27 +2,31 @@ const json = require('../data/products.json');
 module.exports = (app) => {
 
     app.get(`/category`, (req, res) => {
-        const categories = json.categorias.map(x => ({ 
+        const categories = json.categorias.map(x => ({
             name: x.name,
             label: x.label,
             image: x.image
-        }) );
+        }));
 
         res.send(categories);
     });
 
-    app.get(`/category/:ct`, (req, res) => {
+    app.get(`/category/:cat`, (req, res) => {
         const { params } = req;
 
-        const categories = json.categorias
-            .filter(x => x.name === params.ct || x.label === params.ct )
-            .map(x => ({ 
+        const category = json.categorias
+            .find(x => x.name === params.cat || x.label === params.cat)
+            .map(x => ({
                 name: x.name,
                 label: x.label,
                 image: x.image
             }));
 
-        res.send(categories);
+        if (!category) {
+            return res.status(404).send("Categoria não encontrada!");
+        }
+
+        res.send(category);
     });
 
 };
