@@ -1,26 +1,14 @@
-const json = require('../data/products.json');
 module.exports = (app) => {
 
-    app.get(`/category`, (req, res) => {
-        const categories = json.categorias.map(x => ({
-            name: x.name,
-            label: x.label,
-            image: x.image
-        }));
-
+    app.get(`/category`, async (req, res) => {
+        const categories = await Categoria.Get();
         res.send(categories);
     });
 
-    app.get(`/category/:cat`, (req, res) => {
+    app.get(`/category/:cat`, async (req, res) => {
         const { params } = req;
 
-        const category = json.categorias
-            .find(x => x.name === params.cat || x.label === params.cat)
-            .map(x => ({
-                name: x.name,
-                label: x.label,
-                image: x.image
-            }));
+        const category = await Categoria.GetFirst(`name = '${params.cat}' OR nome_normalizado = '${params.cat}'`);
 
         if (!category) {
             return res.status(404).send("Categoria não encontrada!");
