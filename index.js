@@ -1,12 +1,14 @@
-import express from 'express';
-import cors from 'cors';
-import path from 'path';
+const express = require('express');
+const cors = require('cors');
+const path = require('path');
 
+const consign = require('consign');
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
+consign().include('controllers').into(app);
 
 app.listen(3333, () => {
     console.log("--------------------------------------------");
