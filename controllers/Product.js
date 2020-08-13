@@ -31,6 +31,4 @@ module.exports = (app) => {
         res.send(produto);
     });
 
-
-
 };
