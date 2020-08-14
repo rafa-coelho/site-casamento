@@ -1,7 +1,7 @@
 exports.up = async function (database, utf8 = false) {
-    return database.schema.hasTable('produtos').then(function (exists) {
+    return database.schema.hasTable('produto').then(function (exists) {
         if (!exists)
-            return database.schema.createTable("produtos", table => {
+            return database.schema.createTable("produto", table => {
                 if (utf8)
                     table.collate('utf8_unicode_ci');
                 table.string('id', 45).primary();
@@ -18,8 +18,8 @@ exports.up = async function (database, utf8 = false) {
 }
 
 exports.down = async function (database) {
-    return database.schema.hasTable('produtos').then(function (exists) {
+    return database.schema.hasTable('produto').then(function (exists) {
         if (exists)
-            return database.schema.dropTable('produtos');
+            return database.schema.dropTable('produto');
     });
 }

@@ -1,5 +1,5 @@
 module.exports = {
-    table: "produtos",
+    table: "produto",
     values: [
         {
             id: "443eae00-dde1-11ea-89f9-15aa6ac383c8",
