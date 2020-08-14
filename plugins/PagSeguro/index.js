@@ -2,7 +2,7 @@ const axios = require("axios");
 
 class PagSeguro {
     
-    constructor(token, sandbox = false) {
+    constructor(token = PS_TOKEN, sandbox = !PROD) {
         axios.defaults.baseURL = sandbox ? "https://sandbox.api.pagseguro.com/" : "https://api.pagseguro.com/";
         axios.defaults.headers.common['Authorization'] = token;
         axios.defaults.headers.post['Content-Type'] = 'application/json';
@@ -18,6 +18,30 @@ class PagSeguro {
             "security_code": cartao.cvv,
             "holder": {
                 "name": cartao.nome
+            }
+        };
+    }
+
+    Boleto(user){
+        const date = new Date();
+        date.setDate(date.getDate() + 10);
+        this.payment_type = "BOLETO";
+        this.boleto = {
+            due_date: date.toISOString().slice(0,10),
+            instruction_lines: "",
+            holder: {
+                name: user.nome,
+                tax_id: user.cpf,
+                email: user.email,
+                address: {
+                    street: user.endereco.rua,
+                    number: user.endereco.numero,
+                    locality: user.endereco.bairro,
+                    city: user.endereco.cidade,
+                    region: user.endereco.estado,
+                    region_code: user.endereco.uf,
+                    postal_code: user.endereco.cep
+                }
             }
         };
     }
@@ -49,6 +73,10 @@ class PagSeguro {
 
         if (this.payment_type === "CREDIT_CARD") {
             data.payment_method.card = this.credit_card;
+        }
+        
+        if (this.payment_type === "BOLETO") {
+            data.payment_method.boleto = this.boleto;
         }
 
         try {

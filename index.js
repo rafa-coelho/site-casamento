@@ -8,6 +8,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+require('dotenv').config();
+global.PROD = process.env.NODE_ENV == 'prod';
+global.PS_TOKEN = process.env.PS_TOKEN;
+
 const fs = require("fs");
 const directories = ["System", "classes"];
 directories.forEach(dir => {
