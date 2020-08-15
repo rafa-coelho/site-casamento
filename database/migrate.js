@@ -60,11 +60,12 @@ const seed = async () => {
             const seed = require(`${seedsDir}/${file}`);
             let error = false;
             try {
-                const exists = (await database(seed.table).whereIn('id', seed.values.map(x => x.id))).length > 0;
-                if(!exists){
-                    await database(seed.table).insert(seed.values)
+                for (const value of seed.values) {
+                    const exists = (await database(seed.table).where('id', value.id)).length > 0;
+                    if(!exists){
+                        await database(seed.table).insert(value);
+                    }
                 }
-                
             } catch (E) {
                 error = true;
                 console.log(E);
