@@ -93,7 +93,7 @@ class PagSeguro {
                     id: response.payment_method.boleto.id,
                     barcode: response.payment_method.boleto.barcode,
                     formatted_barcode: response.payment_method.boleto.formatted_barcode,
-                    link: response.links.find(x => x.media === 'application/pdf').href
+                    link: response.links.find(x => x.media === 'image/png').href
                 }
             }
 
