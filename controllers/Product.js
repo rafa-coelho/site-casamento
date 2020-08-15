@@ -161,6 +161,7 @@ module.exports = (app) => {
         resp.status = 1;
         resp.msg = "Item comprado com sucesso!";
         resp.data = {
+            ...pagamento,
             ...presente,
             id: presente.id
         };
