@@ -37,13 +37,19 @@ module.exports = (app) => {
         };
 
         if (!headers['authorization']) {
-            return res.status(403).send("Informe o código");
+            resp.errors.push({
+                msg: "Informe o código do convidado"
+            });
+            return res.status(403).send(resp);
         }
 
         const convidado = await Convidado.GetFirst(`code = '${headers['authorization']}'`);
 
         if (!convidado) {
-            return res.status(403).send("Convidado não encontrado!");
+            resp.errors.push({
+                msg: "Convidado não encontrado!"
+            });
+            return res.status(403).send(resp);
         }
 
         const produto = await Produto.GetFirst(`id = '${params.id}'`);
