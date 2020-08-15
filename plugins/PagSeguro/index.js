@@ -28,7 +28,6 @@ class PagSeguro {
         this.payment_type = "BOLETO";
         this.boleto = {
             due_date: date.toISOString().slice(0,10),
-            instruction_lines: "",
             holder: {
                 name: user.nome,
                 tax_id: user.cpf,
@@ -40,7 +39,8 @@ class PagSeguro {
                     city: user.endereco.cidade,
                     region: user.endereco.estado,
                     region_code: user.endereco.uf,
-                    postal_code: user.endereco.cep
+                    postal_code: user.endereco.cep,
+                    country: "BR"
                 }
             }
         };
@@ -85,8 +85,18 @@ class PagSeguro {
                 id: response.id,
                 status: response.status,
                 created_at: response.created_at,
-                paid_at: response.paid_at,
+                paid_at: response.paid_at
             };
+
+            if(this.payment_type === "BOLETO"){
+                this.retorno.boleto = {
+                    id: response.payment_method.boleto.id,
+                    barcode: response.payment_method.boleto.barcode,
+                    formatted_barcode: response.payment_method.boleto.formatted_barcode,
+                    link: response.links.find(x => x.media === 'application/pdf').href
+                }
+            }
+
         } catch (e) {
             this.retorno = e.response.data;
         } finally {

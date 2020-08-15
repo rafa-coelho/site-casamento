@@ -1,3 +1,5 @@
+const PagSeguro = require('../plugins/PagSeguro');
+
 module.exports = (app) => {
 
     app.get(`/product/category/:cat`, async (req, res) => {
@@ -63,7 +65,7 @@ module.exports = (app) => {
         if (body.forma_pagamento === "CREDIT_CARD") {
             if(!body.cartao){
                 resp.errors.push({
-                    msg: `O campo 'Cartão' é obrigatório!`
+                    msg: `O campo 'cartao' é obrigatório!`
                 });
             }else{
                 ["numero", "cvv", "mes", "ano", "nome"].forEach(campo => {
@@ -115,9 +117,53 @@ module.exports = (app) => {
             pag.Cartao(cartao);
         }
 
-        const valor_centavos = Number((parseFloat(body.valor.replace(',', '.')).toFixed(2)).toString().replace(/\./g, ""));
-        // pag.Cobrar(valor_centavos);
+        if(body.forma_pagamento === "BOLETO"){
+            const user = {
+                nome: body.nome,
+                cpf: body.cpf,
+                email: body.email,
+                endereco: body.endereco
+            };
+            pag.Boleto(user);
+        }
+
+        const valor_centavos = Number((parseFloat(body.valor.toString().replace(',', '.')).toFixed(2)).toString().replace(/\./g, ""));
+        const pagamento = await pag.Cobrar(valor_centavos);
         
+        if(![ "WAITING", "PAID" ].includes(pagamento.status)){
+            resp.errors.push({
+                msg: "Erro ao realizar cobrança"
+            });
+            return res.status(500).send(resp);
+        }
+
+        const presente = {
+            id: Hash.generateId(),
+            convidado: convidado.id,
+            produto: produto.id,
+            valor: parseFloat(body.valor.toString().replace(',', '.')).toFixed(2),
+            forma_pagamento: body.forma_pagamento,
+            recibo: pagamento.id,
+            status: pagamento.status
+        };
+
+        const createPresente = await Presente.Create(presente);
+
+        if(createPresente.status !== 1){
+            pag.Extorno();
+            resp.errors.push({
+                msg: "Erro ao guardar pagamento"
+            });
+            return res.status(500).send(resp);
+        }
+        
+
+        resp.status = 1;
+        resp.msg = "Item comprado com sucesso!";
+        resp.data = {
+            ...presente,
+            id: presente.id
+        };
         res.send(resp);
     });
 
