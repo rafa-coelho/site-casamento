@@ -59,4 +59,34 @@ module.exports = (app) => {
         res.send(resp);
     });
 
+    app.get(`/guest`, async (req, res) => {
+        const { headers, body } = req;
+        const resp = {
+            status: 0,
+            msg: "",
+            data: null,
+            errors: []
+        };
+        
+        if (!headers['authorization']) {
+            resp.errors.push({
+                msg: "Informe o código do convidado"
+            });
+            return res.status(403).send(resp);
+        }
+
+        const convidado = await Convidado.GetFirst(`code = '${headers['authorization']}'`);
+
+        if (!convidado) {
+            resp.errors.push({
+                msg: "Convidado não encontrado!"
+            });
+            return res.status(403).send(resp);
+        }
+
+        resp.status = 1;
+        resp.data = convidado;
+        res.send(resp);
+    });
+
 };
