@@ -89,4 +89,27 @@ module.exports = (app) => {
         res.send(resp);
     });
 
+    app.get(`/guest/:code`, async (req, res) => {
+        const { headers, params } = req;
+        const resp = {
+            status: 0,
+            msg: "",
+            data: null,
+            errors: []
+        };
+
+        const convidado = await Convidado.GetFirst(`code = '${params.code}'`);
+
+        if (!convidado) {
+            resp.errors.push({
+                msg: "Convidado não encontrado!"
+            });
+            return res.status(404).send(resp);
+        }
+
+        resp.status = 1;
+        resp.data = convidado;
+        res.send(resp);
+    });
+
 };
