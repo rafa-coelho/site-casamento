@@ -26,34 +26,34 @@ directories.forEach(dir => {
     }
 });
 
-app.use(async (req, res, next) => {
-    const { headers, body } = req;
-    const resp = {
-        status: 0,
-        msg: "",
-        data: null,
-        errors: []
-    };
+// app.use(async (req, res, next) => {
+//     const { headers, body } = req;
+//     const resp = {
+//         status: 0,
+//         msg: "",
+//         data: null,
+//         errors: []
+//     };
 
-    if (!headers['authorization']) {
-        resp.errors.push({
-            msg: "Informe o código do convidado"
-        });
-        return res.status(403).send(resp);
-    }
+//     if (!headers['authorization']) {
+//         resp.errors.push({
+//             msg: "Informe o código do convidado"
+//         });
+//         return res.status(403).send(resp);
+//     }
 
-    const convidado = await Convidado.GetFirst(`code = '${headers['authorization']}'`);
+//     const convidado = await Convidado.GetFirst(`code = '${headers['authorization']}'`);
 
-    if (!convidado) {
-        resp.errors.push({
-            msg: "Convidado não encontrado!"
-        });
-        return res.status(403).send(resp);
-    }
+//     if (!convidado) {
+//         resp.errors.push({
+//             msg: "Convidado não encontrado!"
+//         });
+//         return res.status(403).send(resp);
+//     }
 
-    res.convidado = convidado;
-    next();
-});
+//     res.convidado = convidado;
+//     next();
+// });
 
 consign().include('controllers').into(app);
 
