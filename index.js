@@ -13,6 +13,7 @@ global.PROD = process.env.NODE_ENV == 'prod';
 global.PS_TOKEN = process.env.PS_TOKEN;
 
 const fs = require("fs");
+const Product = require('./controllers/Product');
 const directories = ["System", "classes"];
 directories.forEach(dir => {
     try {
@@ -56,6 +57,8 @@ directories.forEach(dir => {
 // });
 
 consign().include('controllers').into(app);
+
+app.use(`/media`, express.static(path.resolve(__dirname, 'media')));
 
 app.listen(3333, async () => {
     console.log("--------------------------------------------");
