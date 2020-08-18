@@ -33,7 +33,7 @@ module.exports = (app) => {
     });
 
     app.get(`/category/:cat`, async (req, res) => {
-        const { headers } = req;
+        const { params } = req;
         const resp = {
             status: 0,
             data: null,
