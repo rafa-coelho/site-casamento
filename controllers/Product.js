@@ -4,16 +4,26 @@ module.exports = (app) => {
 
     app.get(`/product/category/:cat`, async (req, res) => {
         const { params } = req;
+        const resp = {
+            status: 0,
+            data: null,
+            errors: []
+        };
 
         const category = await Categoria.GetFirst(`nome = '${params.cat}' OR nome_normalizado = '${params.cat}'`);
 
         if (!category) {
-            return res.status(404).send("Categoria não encontrada!");
+            resp.errors.push({
+                msg: "Categoria não encontrada!"
+            });
+            return res.status(403).send(resp);
         }
 
         const products = await Produto.Get(`categoria = '${category.id}'`);
 
-        res.send(products || []);
+        resp.status = 1;
+        resp.data = products;
+        res.send(resp);
     });
 
     app.get(`/product/:name`, async (req, res) => {

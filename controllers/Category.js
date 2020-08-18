@@ -42,7 +42,10 @@ module.exports = (app) => {
         const category = await Categoria.GetFirst(`nome = '${params.cat}' OR nome_normalizado = '${params.cat}'`);
 
         if (!category) {
-            return res.status(404).send("Categoria não encontrada!");
+            resp.errors.push({
+                msg: "Categoria não encontrada!"
+            });
+            return res.status(403).send(resp);
         }
 
         resp.status = 1;
