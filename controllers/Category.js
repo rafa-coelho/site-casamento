@@ -1,7 +1,7 @@
 module.exports = (app) => {
 
     app.get(`/category`, async (req, res) => {
-        const { headers, body } = req;
+        const { headers } = req;
         const resp = {
             status: 0,
             data: null,
@@ -33,15 +33,21 @@ module.exports = (app) => {
     });
 
     app.get(`/category/:cat`, async (req, res) => {
-        const { params } = req;
-
+        const { headers } = req;
+        const resp = {
+            status: 0,
+            data: null,
+            errors: []
+        };
         const category = await Categoria.GetFirst(`nome = '${params.cat}' OR nome_normalizado = '${params.cat}'`);
 
         if (!category) {
             return res.status(404).send("Categoria não encontrada!");
         }
 
-        res.send(category);
+        resp.status = 1;
+        resp.data = category;
+        res.send(resp);
     });
 
 };
