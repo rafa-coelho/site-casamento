@@ -29,13 +29,25 @@ module.exports = (app) => {
 
     app.get(`/product/:name`, async (req, res) => {
         const { params } = req;
-        const produto = await Produto.Get(`nome = '${params.name}'`);
+
+        const resp = {
+            status: 0,
+            data: null,
+            errors: []
+        };
+
+        const produto = await Produto.GetFirst(`nome_normalizado = '${params.name}'`);
 
         if (!produto) {
-            return res.status(404).send("Produto não encontrado!");
+            resp.errors.push({
+                msg: "Produto não encontrado!"
+            });
+            return res.status(404).send(resp);
         }
-
-        res.send(produto);
+        
+        resp.status = 1;
+        resp.data = produto;
+        res.send(resp);
     });
 
     app.post(`/product/:id`, async (req, res) => {
