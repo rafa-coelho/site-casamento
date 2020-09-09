@@ -1,3 +1,5 @@
+const Product = require("./Product");
+
 module.exports = (app) => {
 
     app.get(`/category`, async (req, res) => {
@@ -47,6 +49,9 @@ module.exports = (app) => {
             });
             return res.status(403).send(resp);
         }
+
+        const products = await Produto.Get(`categoria = '${category.id}'`);
+        category.produtos = products;
 
         resp.status = 1;
         resp.data = category;
