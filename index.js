@@ -9,6 +9,7 @@ app.use(cors());
 app.use(express.json());
 
 require('dotenv').config();
+global.ROOT = __dirname;
 global.PROD = process.env.NODE_ENV == 'prod';
 global.PS_TOKEN = process.env.PS_TOKEN;
 
@@ -59,10 +60,13 @@ directories.forEach(dir => {
 consign().include('controllers').into(app);
 
 app.use(`/media`, express.static(path.resolve(__dirname, 'media')));
+app.use(`/src`, express.static(path.resolve(__dirname, 'pages/src')));
 
-app.listen(3333, async () => {
+const port = 3000;
+
+app.listen(port, async () => {
     console.log("--------------------------------------------");
     for (let index = 0; index < 10; index++) console.log("\n");
     console.clear();
-    console.log("Rodando na porta 3333");
+    console.log(`Rodando na porta ${port}`);
 });
