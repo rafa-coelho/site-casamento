@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="/src/css/bootstrap.css" />
+
+    <script src="/src/js/jquery.js"></script>
+    <script src="/src/js/bootstrap.js"></script>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
+
+        <div class="d-flex justify-content-between w-100">
+
+            <div class="col-2">
+                <a class="navbar-brand" disabled href="/">R&A</a>
+            </div>
+
+            <div class="col-8 col-md-3 row d-flex">
+                <a class="nav-link" style="color:white" href="/">Home</a>
+                <a class="nav-link" style="color: white" href="/lista-presentes">Presentear</a>
+            </div>
+
+        </div>
+
+    </nav>
+
+
+    <div class="container-fluid pt-3 text-center">
+        <img class="card-img-top" id="imagem" src="">
+        <br>
+        <h5 id="tituloProduto"></h5>
+        <h4 id="valorProduto"></h4>
+    </div>
+
+
+    <ul class="nav justify-content-center mt-4" id="myTab" role="tablist">
+        <li class="nav-item col-6" style="height: 90px;">
+            <a data-toggle="tab" href="#tabBoleto" class="w-100 h-100 btn btn-dark active">
+                <i class="fas fa-barcode"></i> <br> Boleto
+            </a>
+        </li>
+        <li class="nav-item col-6" style="height: 90px;">
+            <a data-toggle="tab" href="#tabCartao" class="w-100 h-100 btn btn-dark">
+                <i class="fas fa-credit-card"></i> <br> Cartão de Crédito
+            </a>
+        </li>
+    </ul>
+
+    <div class="container mt-3 tab-content" id="myTabContent">
+
+        <div class="tab-pane fade show active" id="tabBoleto" role="tabBoleto">
+
+            <form id="comprarBoleto">
+                <div class="form-group">
+                    <label for="nome">Nome</label>
+                    <input type="text" class="form-control" id="nome" placeholder="Nome">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" placeholder="Email">
+                </div>
+                <div class="form-group">
+                    <label for="cpf">CPF</label>
+                    <input type="text" class="form-control" id="cpf" placeholder="CPF">
+                    <input type="hidden" id="valor">
+                    <input type="hidden" id="produto">
+                </div>
+                
+                
+                <button type="submit" class="btn btn-dark">Confirmar</button>
+            </form>
+
+        </div>
+
+        <div class="tab-pane fade" id="tabCartao" role="tabCartao">
+            Cartão
+        </div>
+
+    </div>
+
+
+    <!-- <div class="container text-center mt-4">
+        <h5 class="page-title">Forma de Pagamento</h5>
+        <div class="row text-center d-flex justify-content-center">
+        </div>
+    </div> -->
+    <!-- 
+    <div class="container tab-content">
+
+        <div id="tabBoleto" class="tab-pane fade in">
+            Boleto
+        </div>
+        <div id="tabCartao" class="tab-pane fade">
+            Cartao
+        </div>
+
+    </div> -->
+
+
+
+
+    <footer class="bg-light text-center text-lg-start">
+        <div class="container p-4">
+            <div class="row">
+                <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">Footer Content</h5>
+
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                    </p>
+                </div>
+
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">Links</h5>
+
+                    <ul class="list-unstyled mb-0">
+                        <li>
+                            <a href="#!" class="text-dark">Link 1</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-uppercase mb-0">Links</h5>
+
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="#!" class="text-dark">Link 1</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+            © 2020 Copyright:
+            <a class="text-dark" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+        </div>
+    </footer>
+
+    <div class="modal fade" id="confirmarPresenca" tabindex="-1" role="dialog" aria-labelledby="confirmarPresencaLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <form class="confirmarPresencaForm">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="quantidade" class="col-form-label">Quantas pessoas vão poder vir?</label>
+                            <input type="number" class="form-control" id="quantidade" min="1">
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                        <button type="submit" class="btn btn-primary">Enviar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="notificacao" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="tituloNotficacao"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <span id="mensagemNotificacao"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
+
+<script src="https://unpkg.com/vanilla-masker@1.1.1/lib/vanilla-masker.js"></script>
+<script src="/src/js/ComprarProduto.js"></script>
+<link rel="stylesheet" href="/src/fontawesome/css/all.css" />

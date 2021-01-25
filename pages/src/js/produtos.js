@@ -19,7 +19,7 @@ const listProdutos = (categoria, titulo) => {
                     html += `    <div class="card-body text-center">`;
                     html += `        <h4 class="card-title">${produto.nome}</h4>`;
                     html += `        <h4>R$ ${produto.valor_minimo.replace('.', ',')}</h4>`;
-                    html += `        <button id="${produto.id}" class="btn btn-success comprar-produto mt-3">Comprar</button>`;
+                    html += `        <a href="/produto?nome=${produto.nome_normalizado}" class="btn btn-success comprar-produto mt-3">Comprar</a>`;
                     html += `    </div>`;
                     html += `</div>`;
                 }

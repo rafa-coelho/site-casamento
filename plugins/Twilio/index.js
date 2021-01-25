@@ -12,7 +12,6 @@ const Twilio = async function (body, to){
             from: 'whatsapp:' + from,
             to: 'whatsapp:+55' + toNumber
         });
-
         return req.sid;
     }catch(e){
         console.log(e);

@@ -1,12 +1,12 @@
 const axios = require("axios");
 
 class PagSeguro {
-    
+
     constructor(token = PS_TOKEN, sandbox = !PROD) {
         axios.defaults.baseURL = sandbox ? "https://sandbox.api.pagseguro.com/" : "https://api.pagseguro.com/";
-        axios.defaults.headers.common['Authorization'] = token;
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
         axios.defaults.headers.post['Content-Type'] = 'application/json';
-        axios.defaults.headers.post['x-api-version'] = '1.0';
+        axios.defaults.headers.post['x-api-version'] = '4.0';
     }
 
     Cartao(cartao) {
@@ -22,24 +22,24 @@ class PagSeguro {
         };
     }
 
-    Boleto(user){
+    Boleto(user) {
         const date = new Date();
         date.setDate(date.getDate() + 10);
         this.payment_type = "BOLETO";
         this.boleto = {
-            due_date: date.toISOString().slice(0,10),
+            due_date: date.toISOString().slice(0, 10),
             holder: {
                 name: user.nome,
-                tax_id: user.cpf,
+                tax_id: user.cpf.replace(/\D/g, ''),
                 email: user.email,
                 address: {
-                    street: user.endereco.rua,
-                    number: user.endereco.numero,
-                    locality: user.endereco.bairro,
-                    city: user.endereco.cidade,
-                    region: user.endereco.estado,
-                    region_code: user.endereco.uf,
-                    postal_code: user.endereco.cep,
+                    street: user.endereco ? user.endereco.rua : 'Rua da Cançoneta',
+                    number: user.endereco ? user.endereco.numero : '44',
+                    locality: user.endereco ? user.endereco.bairro : 'Itaim Paulista',
+                    city: user.endereco ? user.endereco.cidade : 'Sao Paulo',
+                    region: user.endereco ? user.endereco.estado : 'Sao Paulo',
+                    region_code: user.endereco ? user.endereco.uf : 'SP',
+                    postal_code: user.endereco ? user.endereco.cep : '08141008',
                     country: "BR"
                 }
             }
@@ -74,13 +74,15 @@ class PagSeguro {
         if (this.payment_type === "CREDIT_CARD") {
             data.payment_method.card = this.credit_card;
         }
-        
+
         if (this.payment_type === "BOLETO") {
             data.payment_method.boleto = this.boleto;
         }
 
+
+
         try {
-            const response = (await axios.post("/charges", data)).data
+            const response = (await axios.post("/charges", JSON.stringify(data))).data;
             this.retorno = {
                 id: response.id,
                 status: response.status,
@@ -98,6 +100,7 @@ class PagSeguro {
             }
 
         } catch (e) {
+            console.log(e.response)
             this.retorno = e.response.data;
         } finally {
             return this.retorno;

@@ -69,4 +69,6 @@ app.listen(port, async () => {
     for (let index = 0; index < 10; index++) console.log("\n");
     console.clear();
     console.log(`Rodando na porta ${port}`);
+
+
 });

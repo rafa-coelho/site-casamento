@@ -105,11 +105,10 @@ module.exports = (app) => {
                     }
                 });
             }
-
         }
 
         if (body.forma_pagamento === "BOLETO") {
-            [ 'nome', 'cpf', 'email', 'endereco'].forEach(campo => {
+            [ 'nome', 'cpf', 'email' ].forEach(campo => {
                 if (!body[campo]) {
                     resp.errors.push({
                         msg: `O campo 'boleto.${campo}' é obrigatório!`
@@ -117,15 +116,7 @@ module.exports = (app) => {
                 }
             });
 
-            if(body.endereco){
-                [ 'rua', 'numero', 'bairro', 'cidade', 'estado', 'uf', 'cep' ].forEach(campo => {
-                    if (!body.endereco[campo]) {
-                        resp.errors.push({
-                            msg: `O campo 'endereco.${campo}' é obrigatório!`
-                        });
-                    }
-                });
-            }
+            
         }
 
         if (resp.errors.length > 0) {
@@ -158,6 +149,7 @@ module.exports = (app) => {
 
         const valor_centavos = Number((parseFloat(body.valor.toString().replace(',', '.')).toFixed(2)).toString().replace(/\./g, ""));
         const pagamento = await pag.Cobrar(valor_centavos);
+        
 
         if(![ "WAITING", "PAID" ].includes(pagamento.status)){
             resp.errors.push({
@@ -186,7 +178,7 @@ module.exports = (app) => {
             return res.status(500).send(resp);
         }
 
-        Twilio(`Oi, ${convidado.nome.split(' ')[0]}!\nRecebemos o seu presente!\n\nMuito obrigado ♥`, convidado.whatsapp.replace(/\D+/g, ''));
+        Twilio(`Oi, ${convidado.nome.split(' ')[0]}!\nRecebemos o seu presente!\n\nMuito obrigado ♥`, (convidado.whatsapp || "11976092174").replace(/\D+/g, ''));
 
         resp.status = 1;
         resp.msg = "Item comprado com sucesso!";
