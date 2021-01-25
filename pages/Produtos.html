@@ -6,6 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link rel="stylesheet" href="/src/css/bootstrap.css" />
+
+
+    <script src="/src/js/jquery.js"></script>
+    <script src="/src/js/bootstrap.js"></script>
+    <script src="/src/js/produtos.js"></script>
 </head>
 
 <body>
@@ -32,16 +37,18 @@
         <div class="row text-center">
 
             <div class="col-12">
+                <button value="cozinha" class="change-categoria btn btn-dark">Cozinha</button>
                 <button value="quarto" class="change-categoria btn btn-dark ml-2">Quarto</button>
                 <button value="sala" class="change-categoria btn btn-dark ml-2">Sala</button>
-                <button value="kit_banheiro" class="change-categoria btn btn-dark ml-2">Kit Banheiro</button>
-                <button value="lavanderia" class="change-categoria btn btn-dark ml-2 d-md-inline-block d-none">Lavanderia</button>
-                <button value="cozinha" class="change-categoria btn btn-dark ml-2 d-md-inline-block d-none">Cozinha</button>
+                <button value="lavanderia"
+                    class="change-categoria btn btn-dark ml-2 d-md-inline-block d-none">Lavanderia</button>
+                <button value="kit_banheiro"
+                    class="change-categoria btn btn-dark ml-2 ml-2 d-md-inline-block d-none">Kit Banheiro</button>
             </div>
 
             <div class="col-12 pt-2 d-md-none d-sm-inline-block">
                 <button value="lavanderia" class="change-categoria btn btn-dark ml-2">Lavanderia</button>
-                <button value="cozinha" class="change-categoria btn btn-dark ml-2">Cozinha</button>
+                <button value="kit_banheiro" class="change-categoria btn btn-dark ml-2">Kit Banheiro</button>
             </div>
 
         </div>
@@ -97,6 +104,3 @@
 </body>
 
 </html>
-<script src="/src/js/jquery.js"></script>
-<script src="/src/js/bootstrap.js"></script>
-<script src="/src/js/produtos.js"></script>

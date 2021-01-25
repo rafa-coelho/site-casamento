@@ -6,18 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link rel="stylesheet" href="/src/css/bootstrap.css" />
+    <script src="/src/js/jquery.js"></script>
+    <script src="/src/js/bootstrap.js"></script>
 </head>
 
 <body>
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
-        
+
         <div class="d-flex justify-content-between w-100">
 
             <div class="col-2">
                 <a class="navbar-brand" disabled href="/">R&A</a>
             </div>
-            
+
             <div class="col-8 col-md-3 row d-flex">
                 <a class="nav-link" disabled style="color:grey" href="/">Home</a>
                 <a class="nav-link" style="color: white" href="/lista-presentes">Presentear</a>
@@ -76,12 +78,12 @@
         <div class="row d-flex justify-content-center">
 
             <div class="col-6 col-lg-4 text-center">
-                <button class="btn btn-dark btn-lg">
+                <button class="btn btn-dark btn-lg " onclick="confirmarPresenca()">
                     Confirme sua presença
                 </button>
             </div>
             <div class="col-6 col-lg-4 text-center">
-                <button class="btn btn-dark btn-lg" onclick="document.location = 'lista-presentes'">
+                <button class="btn btn-dark btn-lg" onclick="document.location='lista-presentes'">
                     Deixe um presente
                 </button>
             </div>
@@ -118,8 +120,8 @@
                 pulvinar ornare condimentum, diam elit commodo risus, sit amet rhoncus sem diam consequat velit.
                 Phasellus congue scelerisque purus vitae aliquet. Vivamus placerat quis purus nec blandit. Sed sed
                 tempor lectus. Sed metus tortor, pretium a lobortis a, imperdiet id enim. Morbi id facilisis lorem.
-            </p> 
-            
+            </p>
+
             <p>
                 Aenean eleifend, mauris ut placerat pharetra, turpis arcu vulputate dolor, sit amet bibendum tellus
                 ipsum et tellus. Etiam cursus semper turpis, quis feugiat elit ullamcorper eget. Vivamus et odio quis
@@ -129,8 +131,8 @@
                 metus sollicitudin mattis et interdum dolor. Vestibulum ante ipsum primis in faucibus orci luctus et
                 ultrices posuere cubilia curae; Vivamus non nisi neque. Morbi ultrices elit eget metus condimentum,
                 vitae condimentum sapien tincidunt.
-            </p> 
-            
+            </p>
+
             <p>
                 Vivamus a volutpat nibh. Curabitur nisl quam, fermentum sed tempor non, lobortis vel elit. Fusce orci
                 orci, ultrices commodo nisi non, dictum tristique turpis. Duis elementum elementum fermentum. Nullam a
@@ -138,8 +140,8 @@
                 lacinia, viverra urna ac, vulputate lacus. Fusce nunc quam, tempor a diam sed, gravida tincidunt tortor.
                 Vivamus volutpat sit amet nisl eget rutrum. Maecenas lacus lacus, venenatis ac vehicula at, finibus eu
                 nulla. Cras id ante eget urna volutpat vehicula ut accumsan enim. Sed elementum facilisis ornare.
-            </p> 
-            
+            </p>
+
             <p>
                 Sed fringilla lobortis dignissim. Duis facilisis erat sed sodales luctus. Proin sit amet odio leo. Nam
                 tempus mattis viverra. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac
@@ -193,9 +195,45 @@
         </div>
     </footer>
 
+    <div class="modal fade " id="confirmarPresenca" tabindex="-1" role="dialog" aria-labelledby="confirmarPresencaLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <form class="confirmarPresencaForm">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="quantidade" class="col-form-label">Quantas pessoas vão poder vir?</label>
+                            <input type="number" class="form-control" id="quantidade" min="1">
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                        <button type="submit" class="btn btn-primary">Enviar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="notificacao" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="tituloNotficacao"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <span id="mensagemNotificacao"></span>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </body>
 
 </html>
-<script src="/src/js/jquery.js"></script>
-<script src="/src/js/bootstrap.js"></script>
+
+<script src="/src/js/index.js"></script>
