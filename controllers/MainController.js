@@ -4,6 +4,11 @@ module.exports = (app) => {
     app.get(`/`, (req, res) => {
         res.sendFile(ROOT + '/pages/index.html');
     });
+
+    // Login
+    app.get(`/login`, (req, res) => {
+        res.sendFile(ROOT + '/pages/Login.html');
+    });
     
     // Produtos
     app.get(`/lista-presentes`, (req, res) => {

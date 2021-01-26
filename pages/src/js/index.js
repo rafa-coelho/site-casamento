@@ -43,3 +43,12 @@ $(".confirmarPresencaForm").on("submit", (e) => {
         }
     });
 });
+
+
+$(() => {
+
+    if(!window.localStorage.getItem("GUEST_CODE")){
+        document.location = '/login'
+    }
+
+});

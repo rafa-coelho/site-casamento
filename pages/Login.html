@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - R&A</title>
+    <link rel="stylesheet" href="/src/css/bootstrap.css" />
+    <link rel="stylesheet" href="/src/css/Login.css" />
+    <script src="/src/js/jquery.js"></script>
+    <script src="/src/js/bootstrap.js"></script>
+    
+</head>
+
+<body class="text-center">
+    <form class="form-signin" id="entrar">
+        <h1>R&A</h1>
+        <!-- <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72"
+            height="72"> -->
+        <h1 class="h3 mb-3 font-weight-normal"></h1>
+        <label for="codigo" class="sr-only">Código</label>
+        <input type="text" id="codigo" class="form-control mb-3" placeholder="Código" required autofocus>
+
+        <label for="whatsapp" class="sr-only">Whatsapp</label>
+        <input type="text" id="whatsapp" class="form-control" placeholder="Whatsapp">
+
+
+        <span class="resposta"></span>
+
+        <button class="btn btn-lg btn-primary btn-block mt-4" type="submit">Entre</button>
+    </form>
+
+
+</body>
+
+</html>
+<script src="/src/js/Login.js"></script>
+
+<style>
+.resposta{
+    display: none;
+}
+</style>
