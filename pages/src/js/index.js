@@ -1,5 +1,4 @@
 const confirmarPresenca = () => {
-
     let htmlInputs = '';
     for (let i = 1; i < window.GUEST.quantidade; i++) {
         htmlInputs += `<div class="form-group">`;
@@ -60,6 +59,7 @@ $(".confirmarPresencaForm").on("submit", (e) => {
 
             if (response.status == 1) {
                 notificacao("Obrigado!", `Obrigado por confirmar, esperamos você${quantidade > 1 ? 's' : ''} lá!`);
+                getGuest();
             }
         }
     });

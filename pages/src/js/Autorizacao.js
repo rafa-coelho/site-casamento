@@ -16,6 +16,7 @@ const getGuest = () => {
             if(response.status == 1){
                 window.GUEST = response.data;
             }
+
         }
     });
 
