@@ -201,15 +201,12 @@
             <div class="modal-content">
                 <form class="confirmarPresencaForm">
                     <div class="modal-body">
-                        <div class="form-group">
-                            <label for="quantidade" class="col-form-label">Quantas pessoas vão poder vir?</label>
-                            <input type="number" class="form-control" id="quantidade" min="1">
-                        </div>
-
+                        <h4 class="titulo">Quem vai poder vir?</h4>
+                        <div class="lista"></div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                        <button type="submit" class="btn btn-primary">Enviar</button>
+                        <button type="button" class="btn btn-secondary nao" data-dismiss="modal">Fechar</button>
+                        <button type="submit" class="btn btn-primary sim">Enviar</button>
                     </div>
                 </form>
             </div>
@@ -236,4 +233,5 @@
 
 </html>
 
+<script src="/src/js/Autorizacao.js"></script>
 <script src="/src/js/index.js"></script>

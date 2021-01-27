@@ -25,7 +25,7 @@ module.exports = (app) => {
             return res.status(403).send(resp);
         }
 
-        const permitidos = [ 'nome', 'email', 'whatsapp', 'quantidade', 'confirmado' ];
+        const permitidos = [ 'nome', 'email', 'whatsapp', 'quantidade', 'quantidade_confirmado', 'confirmado', 'acompanantes' ];
 
         let hasEdit = false;
         const data = {};
@@ -48,6 +48,17 @@ module.exports = (app) => {
                 msg: "Erro ao atualizar convidado"
             });
             return res.status(500).send(resp);
+        }
+
+        if(body.acompanhantes){
+            Acompanhante.Delete(`convidado = '${convidado.id}'`)
+            body.acompanhantes.forEach(acompanhante => {
+                Acompanhante.Create({
+                    id: Hash.generateId(),
+                    convidado: convidado.id,
+                    nome: acompanhante
+                });
+            })
         }
 
         resp.status = 1;
