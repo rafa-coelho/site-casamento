@@ -40,5 +40,5 @@ $("body").on("click", ".comprar-produto", (e) => {
 });
 
 $(() => {
-    listProdutos(`quarto`, "Quarto");
+    listProdutos(`cozinha`, "Cozinha");
 });
