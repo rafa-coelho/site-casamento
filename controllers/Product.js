@@ -157,7 +157,7 @@ module.exports = (app) => {
             });
             return res.status(500).send(resp);
         }
-
+        
         const presente = {
             id: Hash.generateId(),
             convidado: convidado.id,
@@ -165,6 +165,7 @@ module.exports = (app) => {
             valor: parseFloat(body.valor.toString().replace(',', '.')).toFixed(2),
             forma_pagamento: body.forma_pagamento,
             recibo: pagamento.id,
+            barcode: pagamento.boleto ? pagamento.boleto.barcode : '',
             status: pagamento.status
         };
 

@@ -1,3 +1,13 @@
+const notificacao = (titulo, mensagem) => {
+    $("#tituloNotficacao").text(titulo);
+    $("#mensagemNotificacao").text(mensagem);
+
+    $("#notificacao").modal("show");
+    setTimeout(() => {
+        $("#notificacao").modal("hide");
+    }, 5000);
+};
+
 $(".change-forma-pagamento").on("click", (e) => {
     $(".change-forma-pagamento").removeClass("active");
     $(e.target).addClass("active");
@@ -7,26 +17,32 @@ $("body").on("submit", "#comprarBoleto", (e) => {
     e.preventDefault();
 
     const produto = $(e.target).find("#produto").val();
-    const nome = $(e.target).find("#nome").val();
+    const nome = window.GUEST.nome;
     const email = $(e.target).find("#email").val();
     const cpf = $(e.target).find("#cpf").val().replace(/\D/g, '');
     const valor = $(e.target).find("#valor").val();
+
+    $(".btnConfirmar").html(`<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>`);
 
     $.ajax({
         url: `/product/${produto}`,
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            authorization: 'Z39SY2'
+            authorization: window.GUEST.code
         },
         data: JSON.stringify({
             nome, email, cpf, valor, forma_pagamento: "BOLETO"
         }),
         complete: (request) => {
+            $(".btnConfirmar").html("Confirmar");
+            
             const response = request.responseJSON;
 
             if(response.status == 1){
-                console.log(response)
+                document.location = `/confirmar-pagamento?id=${response.data.id}`
+            }else{
+                notificacao("Ops!", response.errors[0].msg);
             }
         }
     });

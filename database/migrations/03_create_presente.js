@@ -10,6 +10,7 @@ exports.up = async function (database, utf8 = false) {
                 table.string('valor', 10).notNullable();
                 table.string('forma_pagamento', 10);
                 table.string('recibo', 50);
+                table.string('barcode', 100);
                 table.string('status', 10);
                 table.bool('deleted').defaultTo(false);
             });

@@ -5,7 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
+
     <link rel="stylesheet" href="/src/css/bootstrap.css" />
+    <link rel="stylesheet" href="/src/fontawesome/css/all.css" />
 
     <script src="/src/js/jquery.js"></script>
     <script src="/src/js/bootstrap.js"></script>
@@ -58,22 +60,18 @@
 
             <form id="comprarBoleto">
                 <div class="form-group">
-                    <label for="nome">Nome</label>
-                    <input type="text" class="form-control" id="nome" placeholder="Nome">
-                </div>
-                <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="email" class="form-control" id="email" placeholder="Email">
+                    <input type="email" required class="form-control" id="email" placeholder="Email">
                 </div>
                 <div class="form-group">
                     <label for="cpf">CPF</label>
-                    <input type="text" class="form-control" id="cpf" placeholder="CPF">
+                    <input type="text" required class="form-control" id="cpf" placeholder="CPF">
                     <input type="hidden" id="valor">
                     <input type="hidden" id="produto">
                 </div>
-                
-                
-                <button type="submit" class="btn btn-dark">Confirmar</button>
+
+
+                <button type="submit" class="btn btn-dark btnConfirmar">Confirmar</button>
             </form>
 
         </div>
@@ -83,27 +81,6 @@
         </div>
 
     </div>
-
-
-    <!-- <div class="container text-center mt-4">
-        <h5 class="page-title">Forma de Pagamento</h5>
-        <div class="row text-center d-flex justify-content-center">
-        </div>
-    </div> -->
-    <!-- 
-    <div class="container tab-content">
-
-        <div id="tabBoleto" class="tab-pane fade in">
-            Boleto
-        </div>
-        <div id="tabCartao" class="tab-pane fade">
-            Cartao
-        </div>
-
-    </div> -->
-
-
-
 
     <footer class="bg-light text-center text-lg-start">
         <div class="container p-4">
@@ -185,6 +162,7 @@
 
 </html>
 
+<script src="/src/js/Autorizacao.js"></script>
 <script src="https://unpkg.com/vanilla-masker@1.1.1/lib/vanilla-masker.js"></script>
+<script src="https://cdn.jsdelivr.net/jsbarcode/3.6.0/JsBarcode.all.min.js"></script>
 <script src="/src/js/ComprarProduto.js"></script>
-<link rel="stylesheet" href="/src/fontawesome/css/all.css" />

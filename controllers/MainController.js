@@ -19,5 +19,10 @@ module.exports = (app) => {
     app.get(`/produto`, (req, res) => {
         res.sendFile(ROOT + '/pages/ComprarProduto.html');
     });
+    
+    // Confirmacao de Compra 
+    app.get(`/compra-confirmada`, (req, res) => {
+        res.sendFile(ROOT + '/pages/CompraConfirmada.html');
+    });
 
 };
