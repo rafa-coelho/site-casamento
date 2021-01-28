@@ -55,6 +55,8 @@
     </ul>
 
     <div class="container mt-3 tab-content" id="myTabContent">
+        <input type="hidden" id="valor">
+        <input type="hidden" id="produto">
 
         <div class="tab-pane fade show active" id="tabBoleto" role="tabBoleto">
 
@@ -66,8 +68,6 @@
                 <div class="form-group">
                     <label for="cpf">CPF</label>
                     <input type="text" required class="form-control" id="cpf" placeholder="CPF">
-                    <input type="hidden" id="valor">
-                    <input type="hidden" id="produto">
                 </div>
 
 
@@ -77,7 +77,42 @@
         </div>
 
         <div class="tab-pane fade" id="tabCartao" role="tabCartao">
-            Cartão
+            <form id="comprarCartao">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="cc-nome">Nome no cartão</label>
+                        <input type="text" class="form-control" id="cc-nome" placeholder="" required>
+                        <small class="text-muted">Nome completo, como mostrado no cartão.</small>
+                        <div class="invalid-feedback">
+                            O nome que está no cartão é obrigatório.
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="cc-numero">Número do cartão de crédito</label>
+                        <input type="text" class="form-control" id="cc-numero" placeholder="" required>
+                        <div class="invalid-feedback">
+                            O número do cartão de crédito é obrigatório.
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 mb-3">
+                        <label for="cc-expiracao">Data de expiração</label>
+                        <input type="text" class="form-control" id="cc-expiracao" placeholder="" required>
+                        <div class="invalid-feedback">
+                            Data de expiração é obrigatória.
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label for="cc-cvv">CVV</label>
+                        <input type="text" class="form-control" id="cc-cvv" placeholder="" required>
+                        <div class="invalid-feedback">
+                            Código de segurança é obrigatório.
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-dark btnConfirmar">Confirmar</button>
+            </form>
         </div>
 
     </div>
