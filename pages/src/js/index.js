@@ -15,16 +15,6 @@ const confirmarPresenca = () => {
     $("#confirmarPresenca").modal('show');
 };
 
-const notificacao = (titulo, mensagem) => {
-    $("#tituloNotficacao").text(titulo);
-    $("#mensagemNotificacao").text(mensagem);
-
-    $("#notificacao").modal("show");
-    setTimeout(() => {
-        $("#notificacao").modal("hide");
-    }, 5000);
-};
-
 $(".confirmarPresencaForm").on("submit", (e) => {
     e.preventDefault();
 

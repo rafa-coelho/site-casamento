@@ -58,7 +58,7 @@ module.exports = (app) => {
         const presente = await Presente.GetFirst(`convidado = '${convidado.id}' AND id = '${params.id}'`);
 
         if(!presente){
-            res.errors.push({
+            resp.errors.push({
                 msg: "Presente não encontrado"
             });
             return res.status(404).send(resp);

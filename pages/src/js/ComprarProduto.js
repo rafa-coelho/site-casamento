@@ -1,13 +1,3 @@
-const notificacao = (titulo, mensagem) => {
-    $("#tituloNotficacao").text(titulo);
-    $("#mensagemNotificacao").text(mensagem);
-
-    $("#notificacao").modal("show");
-    setTimeout(() => {
-        $("#notificacao").modal("hide");
-    }, 5000);
-};
-
 $(".change-forma-pagamento").on("click", (e) => {
     $(".change-forma-pagamento").removeClass("active");
     $(e.target).addClass("active");
@@ -40,7 +30,7 @@ $("body").on("submit", "#comprarBoleto", (e) => {
             const response = request.responseJSON;
 
             if(response.status == 1){
-                document.location = `/confirmar-pagamento?id=${response.data.id}`
+                document.location = `/compra-confirmada?id=${response.data.id}`
             }else{
                 notificacao("Ops!", response.errors[0].msg);
             }

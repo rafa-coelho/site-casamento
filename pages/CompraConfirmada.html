@@ -1,11 +1,92 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pagamento Confirmado</title>
 </head>
+
 <body>
-    
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
+
+        <div class="d-flex justify-content-between w-100">
+
+            <div class="col-2">
+                <a class="navbar-brand" disabled href="/">R&A</a>
+            </div>
+
+            <div class="col-8 col-md-3 row d-flex">
+                <a class="nav-link" style="color:white" href="/">Home</a>
+                <a class="nav-link" style="color: white" href="/lista-presentes">Presentear</a>
+            </div>
+
+        </div>
+
+    </nav>
+
+    <div class="container">
+        <div class="row pt-4 mt-5 d-flex justify-content-center">
+            <div class="col-12 text-center">
+                <h1>
+                    R&A
+                </h1>
+                <h2 class="mb-4">
+                    Muito obrigado!
+                </h2>
+                <p class="mt-6">
+                    <br>
+                    Aqui está o seu boleto!
+                    <br>
+                    Também enviamos no seu email!
+                </p>
+            </div>
+        </div>
+        <div class="row p-1">
+            <svg style="width: 100%" id="codBarras"></svg>
+        </div>
+        
+        <div class="row">
+            <div class="col-12 text-center">
+                <button class="btn btn-success" id="copiarCodigo">
+                    Copiar Código
+                </button>
+            </div>
+            <div class="col-12 text-center">
+                <a href="/">Voltar</a>
+            </div>
+            <input type="text " style="opacity: 0;" id="valorCodBarras" value="5464984656565698656346">
+        </div>
+    </div>
+
+    <div class="modal fade" id="notificacao" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="tituloNotficacao"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <span id="mensagemNotificacao"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
+
+
 </html>
+<link rel="stylesheet" href="/src/css/bootstrap.css" />
+<link rel="stylesheet" href="/src/fontawesome/css/all.css" />
+
+<script src="/src/js/jquery.js"></script>
+<script src="/src/js/bootstrap.js"></script>
+
+<script src="/src/js/Autorizacao.js"></script>
+<script src="https://unpkg.com/vanilla-masker@1.1.1/lib/vanilla-masker.js"></script>
+<script src="https://cdn.jsdelivr.net/jsbarcode/3.6.0/JsBarcode.all.min.js"></script>
+<script src="/src/js/CompraConfirmada.js"></script>

@@ -1,3 +1,13 @@
+const notificacao = (titulo, mensagem) => {
+    $("#tituloNotficacao").text(titulo);
+    $("#mensagemNotificacao").text(mensagem);
+
+    $("#notificacao").modal("show");
+    setTimeout(() => {
+        $("#notificacao").modal("hide");
+    }, 5000);
+};
+
 const getGuest = () => {
     const code = window.localStorage.getItem("GUEST_CODE");
 
@@ -21,7 +31,4 @@ const getGuest = () => {
     });
 
 };
-
-$(() => {
-    getGuest();
-});
+getGuest();
