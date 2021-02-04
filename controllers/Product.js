@@ -146,11 +146,11 @@ module.exports = (app) => {
             };
             pag.Boleto(user);
         }
-
+        
         const valor_centavos = Number((parseFloat(body.valor.toString().replace(',', '.')).toFixed(2)).toString().replace(/\./g, ""));
         const pagamento = await pag.Cobrar(valor_centavos);
         
-
+        
         if(![ "WAITING", "PAID" ].includes(pagamento.status)){
             resp.errors.push({
                 msg: "Erro ao realizar cobrança"
@@ -168,7 +168,7 @@ module.exports = (app) => {
             barcode: pagamento.boleto ? pagamento.boleto.barcode : '',
             status: pagamento.status
         };
-
+        
         const createPresente = await Presente.Create(presente);
 
         if(createPresente.status !== 1){
@@ -179,7 +179,16 @@ module.exports = (app) => {
             return res.status(500).send(resp);
         }
 
-        Twilio(`Oi, ${convidado.nome.split(' ')[0]}!\nRecebemos o seu presente!\n\nMuito obrigado ♥`, (convidado.whatsapp || "11976092174").replace(/\D+/g, ''));
+        
+        if(body.forma_pagamento === "BOLETO"){
+            const mail = new Mailer();
+            mail.to = body.email;
+            mail.subject = "R&A - Obrigado pelo presente - BOLETO";
+            mail.message = Mailer.Boleto(convidado.nome, req.protocol + '://' + req.get('host') + `/compra-confirmada?id=${presente.id}`);
+            await mail.Send();
+        }
+        
+        // Twilio(`Oi, ${convidado.nome.split(' ')[0]}!\nRecebemos o seu presente!\n\nMuito obrigado ♥`, (convidado.whatsapp || "11976092174").replace(/\D+/g, ''));
 
         resp.status = 1;
         resp.msg = "Item comprado com sucesso!";

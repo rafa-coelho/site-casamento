@@ -15,7 +15,7 @@ const getPresente = () => {
             if (response.status == 1) {
 
                 JsBarcode('#codBarras', response.data.barcode, {
-                    displayValue: false
+                    // displayValue: false
                 });
                 $("#valorCodBarras").val(response.data.barcode);
 

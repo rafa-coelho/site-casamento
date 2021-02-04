@@ -117,21 +117,21 @@ $(() => {
     const cpfMask = ['999.999.999-99'];
     const cpf = document.querySelector('#cpf');
     VMasker(cpf).maskPattern(cpfMask[0]);
-    cpf.addEventListener('input', inputHandler.bind(undefined, cpfMask, 14), false);
+    // cpf.addEventListener('input', inputHandler.bind(undefined, cpfMask, 14), false);
     
     const cardMask = ['9999.9999.9999.9999'];
     const card = document.querySelector('#cc-numero');
     VMasker(card).maskPattern(cardMask[0]);
-    cpf.addEventListener('input', inputHandler.bind(undefined, cardMask, 14), false);
+    // cpf.addEventListener('input', inputHandler.bind(undefined, cardMask, 14), false);
     
     const vencimentoMask = ['99/99'];
     const vencimento = document.querySelector('#cc-expiracao');
     VMasker(vencimento).maskPattern(vencimentoMask[0]);
-    cpf.addEventListener('input', inputHandler.bind(undefined, vencimentoMask, 14), false);
+    // cpf.addEventListener('input', inputHandler.bind(undefined, vencimentoMask, 14), false);
     
     const cvvMask = ['999'];
     const cvv = document.querySelector('#cc-cvv');
     VMasker(cvv).maskPattern(cvvMask[0]);
-    cpf.addEventListener('input', inputHandler.bind(undefined, cvvMask, 14), false);
+    // cpf.addEventListener('input', inputHandler.bind(undefined, cvvMask, 14), false);
 
 });
