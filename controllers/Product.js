@@ -184,7 +184,7 @@ module.exports = (app) => {
             const mail = new Mailer();
             mail.to = body.email;
             mail.subject = "R&A - Obrigado pelo presente - BOLETO";
-            mail.message = Mailer.Boleto(convidado.nome, req.protocol + '://' + req.get('host') + `/compra-confirmada?id=${presente.id}`);
+            mail.message = Mailer.Boleto(convidado, req.protocol + '://' + req.get('host') + `/compra-confirmada?id=${presente.id}`);
             await mail.Send();
         }
         
