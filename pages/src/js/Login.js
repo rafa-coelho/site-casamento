@@ -34,7 +34,9 @@ $("#entrar").on("submit", (e) => {
                 $(".resposta").fadeIn();
                 setTimeout(() => {
                     $(".resposta").fadeOut();
-                    window.localStorage.setItem("GUEST_CODE", response.data.code);
+                    setCookie("GUEST_CODE", response.data.code, 1);
+
+                    // window.localStorage.setItem("GUEST_CODE", response.data.code);
                     window.location.href = `/`;
                 }, 2000);
 
@@ -53,7 +55,7 @@ $("#entrar").on("submit", (e) => {
 
 
 $(() => {
-    if(window.localStorage.getItem("GUEST_CODE")){
+    if(getCookie("GUEST_CODE")){
         document.location.href = '/'
     }
 });

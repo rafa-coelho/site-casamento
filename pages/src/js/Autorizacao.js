@@ -8,10 +8,34 @@ const notificacao = (titulo, mensagem) => {
     }, 5000);
 };
 
-const getGuest = () => {
-    const code = window.localStorage.getItem("GUEST_CODE");
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    var expires = "expires=" + d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
 
-    if(!code)
+function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
+
+const getGuest = () => {
+    const code = getCookie("GUEST_CODE");
+
+    if (!code)
         document.location.href = '/login';
 
     $.ajax({
@@ -23,7 +47,7 @@ const getGuest = () => {
         complete: (request) => {
             const response = request.responseJSON;
 
-            if(response.status == 1){
+            if (response.status == 1) {
                 window.GUEST = response.data;
             }
 
@@ -31,4 +55,6 @@ const getGuest = () => {
     });
 
 };
-getGuest();
+
+if(document.location.pathname !== '/login')
+    getGuest();
