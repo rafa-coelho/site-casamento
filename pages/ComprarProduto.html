@@ -32,127 +32,102 @@
 
     </nav>
 
+    <div class="container d-flex justify-content-center">
 
-    <div class="container-fluid pt-3 text-center">
-        <img class="card-img-top" id="imagem" src="">
-        <br>
-        <h5 id="tituloProduto"></h5>
-        <h4 id="valorProduto"></h4>
-    </div>
+        <div class="col-lg-8 col-md-12">
 
-
-    <ul class="nav justify-content-center mt-4" id="myTab" role="tablist">
-        <li class="nav-item col-6" style="height: 90px;">
-            <a data-toggle="tab" href="#tabBoleto" class="w-100 h-100 btn btn-dark active">
-                <i class="fas fa-barcode"></i> <br> Boleto
-            </a>
-        </li>
-        <li class="nav-item col-6" style="height: 90px;">
-            <a data-toggle="tab" href="#tabCartao" class="w-100 h-100 btn btn-dark">
-                <i class="fas fa-credit-card"></i> <br> Cartão de Crédito
-            </a>
-        </li>
-    </ul>
-
-    <div class="container mt-3 tab-content" id="myTabContent">
-        <input type="hidden" id="valor">
-        <input type="hidden" id="produto">
-
-        <div class="tab-pane fade show active" id="tabBoleto" role="tabBoleto">
-
-            <form id="comprarBoleto">
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" required class="form-control" id="email" placeholder="Email">
-                </div>
-                <div class="form-group">
-                    <label for="cpf">CPF</label>
-                    <input type="text" required class="form-control" id="cpf" placeholder="CPF">
-                </div>
-
-
-                <button type="submit" class="btn btn-dark btnConfirmar">Confirmar</button>
-            </form>
-
-        </div>
-
-        <div class="tab-pane fade" id="tabCartao" role="tabCartao">
-            <form id="comprarCartao">
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label for="cc-nome">Nome no cartão</label>
-                        <input type="text" class="form-control" id="cc-nome" placeholder="" required>
-                        <small class="text-muted">Nome completo, como mostrado no cartão.</small>
-                        <div class="invalid-feedback">
-                            O nome que está no cartão é obrigatório.
+            <div class="col-lg-6 container-fluid pt-3 text-center">
+                <img class="card-img-top" id="imagem" src="">
+                <br>
+                <h5 id="tituloProduto"></h5>
+                <h4 id="valorProduto"></h4>
+            </div>
+        
+        
+            <ul class="nav justify-content-center mt-4" id="myTab" role="tablist">
+                <li class="nav-item col-6" style="height: 90px;">
+                    <a data-toggle="tab" href="#tabBoleto" class="w-100 h-100 btn btn-dark active">
+                        <i class="fas fa-barcode"></i> <br> Boleto
+                    </a>
+                </li>
+                <li class="nav-item col-6" style="height: 90px;">
+                    <a data-toggle="tab" href="#tabCartao" class="w-100 h-100 btn btn-dark">
+                        <i class="fas fa-credit-card"></i> <br> Cartão de Crédito
+                    </a>
+                </li>
+            </ul>
+        
+            <div class="container mt-3 tab-content" id="myTabContent">
+                <input type="hidden" id="valor">
+                <input type="hidden" id="produto">
+        
+                <div class="tab-pane fade show active" id="tabBoleto" role="tabBoleto">
+        
+                    <form id="comprarBoleto">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" required class="form-control" id="email" placeholder="Email">
                         </div>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="cc-numero">Número do cartão de crédito</label>
-                        <input type="text" class="form-control" id="cc-numero" placeholder="" required>
-                        <div class="invalid-feedback">
-                            O número do cartão de crédito é obrigatório.
+                        <div class="form-group">
+                            <label for="cpf">CPF</label>
+                            <input type="text" required class="form-control" id="cpf" placeholder="CPF">
                         </div>
-                    </div>
+        
+        
+                        <button type="submit" class="btn btn-dark btnConfirmar">Confirmar</button>
+                    </form>
+        
                 </div>
-                <div class="row">
-                    <div class="col-md-3 mb-3">
-                        <label for="cc-expiracao">Data de expiração</label>
-                        <input type="text" class="form-control" id="cc-expiracao" placeholder="" required>
-                        <div class="invalid-feedback">
-                            Data de expiração é obrigatória.
+        
+                <div class="tab-pane fade" id="tabCartao" role="tabCartao">
+                    <form id="comprarCartao">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="cc-nome">Nome no cartão</label>
+                                <input type="text" class="form-control" id="cc-nome" placeholder="" required>
+                                <small class="text-muted">Nome completo, como mostrado no cartão.</small>
+                                <div class="invalid-feedback">
+                                    O nome que está no cartão é obrigatório.
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="cc-numero">Número do cartão de crédito</label>
+                                <input type="text" class="form-control" id="cc-numero" placeholder="" required>
+                                <div class="invalid-feedback">
+                                    O número do cartão de crédito é obrigatório.
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-3 mb-3">
-                        <label for="cc-cvv">CVV</label>
-                        <input type="text" class="form-control" id="cc-cvv" placeholder="" required>
-                        <div class="invalid-feedback">
-                            Código de segurança é obrigatório.
+                        <div class="row">
+                            <div class="col-md-3 mb-3">
+                                <label for="cc-expiracao">Data de expiração</label>
+                                <input type="text" class="form-control" id="cc-expiracao" placeholder="" required>
+                                <div class="invalid-feedback">
+                                    Data de expiração é obrigatória.
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label for="cc-cvv">CVV</label>
+                                <input type="text" class="form-control" id="cc-cvv" placeholder="" required>
+                                <div class="invalid-feedback">
+                                    Código de segurança é obrigatório.
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                        <button type="submit" class="btn btn-dark btnConfirmar">Confirmar</button>
+                    </form>
                 </div>
-                <button type="submit" class="btn btn-dark btnConfirmar">Confirmar</button>
-            </form>
-        </div>
-
-    </div>
-
-    <footer class="bg-light text-center text-lg-start">
-        <div class="container p-4">
-            <div class="row">
-                <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
-                    <h5 class="text-uppercase">Footer Content</h5>
-
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                    </p>
-                </div>
-
-                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-                    <h5 class="text-uppercase">Links</h5>
-
-                    <ul class="list-unstyled mb-0">
-                        <li>
-                            <a href="#!" class="text-dark">Link 1</a>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-                    <h5 class="text-uppercase mb-0">Links</h5>
-
-                    <ul class="list-unstyled">
-                        <li>
-                            <a href="#!" class="text-dark">Link 1</a>
-                        </li>
-                    </ul>
-                </div>
+        
             </div>
         </div>
 
-        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
-            © 2020 Copyright:
-            <a class="text-dark" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+
+    </div>
+
+
+    <footer class="bg-light text-center text-lg-start">
+        <div class="text-center p-3 mt-5" style="background-color: rgba(0, 0, 0, 0.2)">
+            © 2020 - LeadThis 
         </div>
     </footer>
 
