@@ -13,6 +13,7 @@ global.ROOT = __dirname;
 global.PROD = process.env.NODE_ENV == 'prod';
 global.PS_TOKEN = process.env.PS_TOKEN;
 
+console.log(PROD)
 const fs = require("fs");
 
 const directories = ["System", "classes"];
