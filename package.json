@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node .",
+    "postinstall": "npm run migrate",
     "dev": "nodemon .",
     "migrate": "node ./database/migrate.js",
     "rollback": "node ./database/rollback.js"
