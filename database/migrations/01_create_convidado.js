@@ -9,12 +9,11 @@ exports.up = async function (database, utf8 = false) {
                 table.string('nome', 80).notNullable();
                 table.string('email', 80);
                 table.string('whatsapp', 15);
-                table.int('quantidade').defaultTo(1);
-                table.int('quantidade_confirmado');
+                table.integer('quantidade').defaultTo(1);
+                table.integer('quantidade_confirmado').defaultTo(0);
                 table.bool('padrinho').defaultTo(false);
                 table.bool('confirmado').defaultTo(false);
                 table.bool('deleted').defaultTo(false);
-                console.log('teste')
             });
     });
 
