@@ -107,6 +107,7 @@ $("body").on("submit", "#comprarCartao", (e) => {
 
     const produto = $("#produto").val();
     const valor = $("#valor").val();
+    const parcelas = $("#parcelas").val();
 
     const cartao = {
         nome: $(e.target).find("#cc-nome").val(),
@@ -126,7 +127,7 @@ $("body").on("submit", "#comprarCartao", (e) => {
             authorization: window.GUEST.code
         },
         data: JSON.stringify({
-            cartao, valor, forma_pagamento: "CREDIT_CARD"
+            cartao, valor, forma_pagamento: "CREDIT_CARD", parcelas
         }),
         complete: (request) => {
             $(".btnConfirmar").html("Confirmar");

@@ -31,11 +31,11 @@ function getCookie(cname) {
     return "";
 }
 
+const getGuest = (redirect = true) => new Promise((resolve) => {
 
-const getGuest = () => {
     const code = getCookie("GUEST_CODE");
 
-    if (!code)
+    if (!code && redirect)
         document.location.href = '/login';
 
     $.ajax({
@@ -49,12 +49,31 @@ const getGuest = () => {
 
             if (response.status == 1) {
                 window.GUEST = response.data;
+                resolve(true);
+            } else {
+                resolve(false);
             }
 
         }
     });
+});
 
-};
+const Login = (codigo = "_") => new Promise((resolve, reject) => {
+    $.ajax({
+        url: `/guest/${codigo}`,
+        complete: (request) => {
+            const response = request.responseJSON;
 
-if(document.location.pathname !== '/login')
-    getGuest();
+            if (response.status == 1) {
+                setCookie("GUEST_CODE", response.data.code, 1);
+                resolve(response.data.code);
+            } else {
+                setCookie("GUEST_CODE", null, 1);
+                reject(response.errors[0].msg);
+            }
+        }
+    });
+});
+
+// if (document.location.pathname !== '/login')
+//     getGuest();

@@ -7,6 +7,8 @@ const confirmarPresenca = () => {
         htmlInputs += `</div>`;
     }
 
+    console.log(window.GUEST);
+
     $("#confirmarPresenca").find('.titulo').text(window.GUEST.quantidade > 1 ? "Quem vai poder vir?" : "Você vai poder vir?");
     $("#confirmarPresenca").find('.sim').text(window.GUEST.quantidade > 1 ? "Confirmar" : "Sim");
     $("#confirmarPresenca").find('.nao').text(window.GUEST.quantidade > 1 ? "Fechar" : "Não");
@@ -23,11 +25,10 @@ $(".confirmarPresencaForm").on("submit", (e) => {
     const acompanhantes = [];
     for (let i = 1; i < window.GUEST.quantidade; i++) {
         const acompanhante = $(e.target).find(`#acompanhante${i}`).val();
-        if(acompanhante && acompanhante !== ""){
+        if (acompanhante && acompanhante !== "") {
             acompanhantes.push(acompanhante);
         }
     }
-
 
     $.ajax({
         url: `/guest`,
@@ -53,4 +54,12 @@ $(".confirmarPresencaForm").on("submit", (e) => {
             }
         }
     });
+});
+
+$(async() => {
+    const guest = await getGuest(false);
+
+    if (!guest)
+        $("#btnConfirmarPresenca").hide();
+
 });

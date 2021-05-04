@@ -11,7 +11,7 @@ const updateGuest = (code, data) => {
             const response = request.responseJSON;
 
             console.log(response);
-            if (response.status == 1){
+            if (response.status == 1) {
 
             }
 
@@ -55,7 +55,7 @@ $("#entrar").on("submit", (e) => {
 
 
 $(() => {
-    if(getCookie("GUEST_CODE")){
+    if (getCookie("GUEST_CODE")) {
         document.location.href = '/'
     }
 });

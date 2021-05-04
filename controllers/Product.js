@@ -1,6 +1,25 @@
 const PagSeguro = require('../plugins/PagSeguro');
 const Twilio = require('../plugins/Twilio');
 
+const calcularValorTotal = (valor, parcelas) => {
+    const fator = [
+        { parcelas: 1, fator: 1 },
+        { parcelas: 2, fator: 0.51495 },
+        { parcelas: 3, fator: 0.34670 },
+        { parcelas: 4, fator: 0.26255 },
+        { parcelas: 5, fator: 0.21210 },
+        { parcelas: 6, fator: 0.17847 },
+        { parcelas: 7, fator: 0.15446 },
+        { parcelas: 8, fator: 0.13645 },
+        { parcelas: 9, fator: 0.12246 },
+        { parcelas: 10, fator: 0.11127 },
+        { parcelas: 11, fator: 0.10212 },
+        { parcelas: 12, fator: 0.09450 }
+    ];
+    
+    return (valor * fator.find(x => x.parcelas === parcelas).fator) * parcelas;
+};
+
 module.exports = (app) => {
 
     app.get(`/product/category/:cat`, async (req, res) => {
@@ -92,6 +111,12 @@ module.exports = (app) => {
         });
 
         if (body.forma_pagamento === "CREDIT_CARD") {
+            if(!body.parcelas){
+                resp.errors.push({
+                    msg: `O campo 'parcelas' é obrigatório!`
+                });
+            }
+
             if(!body.cartao){
                 resp.errors.push({
                     msg: `O campo 'cartao' é obrigatório!`
@@ -115,14 +140,13 @@ module.exports = (app) => {
                     });
                 }
             });
-
-            
         }
 
         if (resp.errors.length > 0) {
             return res.status(400).send(resp);
         }
 
+        let valor = parseFloat(body.valor.toString().replace(',', '.')).toFixed(2);
         const pag = new PagSeguro();
 
         if(body.forma_pagamento === "CREDIT_CARD"){
@@ -134,6 +158,9 @@ module.exports = (app) => {
                 cvv: body.cartao.cvv,
                 nome: body.cartao.nome
             };
+            valor = calcularValorTotal(valor, Number(body.parcelas))
+            
+            pag.Parcelas(Number(body.parcelas));
             pag.Cartao(cartao);
         }
 
@@ -147,7 +174,7 @@ module.exports = (app) => {
             pag.Boleto(user);
         }
         
-        const valor_centavos = Number((parseFloat(body.valor.toString().replace(',', '.')).toFixed(2)).toString().replace(/\./g, ""));
+        const valor_centavos = valor.toString().replace(/\./g, "");
         const pagamento = await pag.Cobrar(valor_centavos);
         
         
