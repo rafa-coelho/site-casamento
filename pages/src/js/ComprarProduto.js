@@ -1,4 +1,4 @@
-Number.prototype.between = function (menor, maior) {
+Number.prototype.between = function(menor, maior) {
     return this >= menor && this <= maior;
 }
 
@@ -13,11 +13,11 @@ const calcularParcelas = (valor) => {
     if (valor > 50) {
         maximoParcelas = 4;
     }
-    
+
     if (valor >= 100) {
         maximoParcelas = 6;
     }
-    
+
     if (valor >= 500) {
         maximoParcelas = 12;
     }
@@ -37,15 +37,15 @@ const calcularParcelas = (valor) => {
         { parcelas: 11, fator: 0.10212 },
         { parcelas: 12, fator: 0.09450 }
     ];
-    
+
     const parcelas = [];
-    
+
     for (let i = 1; i <= maximoParcelas; i++) {
         const valor_parcela = (valor * fator.find(x => x.parcelas === i).fator).toFixed(2);
         const valor_total = valor_parcela * i;
         const juros = ((valor_total - valor) / valor) * 100;
         //${juros > 0 ? ` (${juros.toFixed(2)}%)` : '' }
-    
+
         parcelas.push({
             parcelas: i,
             valor_parcela,
@@ -58,7 +58,7 @@ const calcularParcelas = (valor) => {
 
     const options = `<option value="" selected disabled> -- Selecione -- </option> ${parcelas.map(x => x.html).join("")}`;
 
-    $("#parcelas").html(options);    
+    $("#parcelas").html(options);
 };
 
 $(".change-forma-pagamento").on("click", (e) => {
@@ -70,7 +70,7 @@ $("body").on("submit", "#comprarBoleto", (e) => {
     e.preventDefault();
 
     const produto = $("#produto").val();
-    const nome = window.GUEST.nome;
+    const nome = window.GUEST ? window.GUEST.nome : $("#nome").val();
     const email = $(e.target).find("#email").val();
     const cpf = $(e.target).find("#cpf").val().replace(/\D/g, '');
     const valor = $("#valor").val();
@@ -82,10 +82,14 @@ $("body").on("submit", "#comprarBoleto", (e) => {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            authorization: window.GUEST.code
+            authorization: window.GUEST ? window.GUEST.code : "ABCDEF"
         },
         data: JSON.stringify({
-            nome, email, cpf, valor, forma_pagamento: "BOLETO"
+            nome,
+            email,
+            cpf,
+            valor,
+            forma_pagamento: "BOLETO"
         }),
         complete: (request) => {
             $(".btnConfirmar").html("Confirmar");
@@ -127,7 +131,10 @@ $("body").on("submit", "#comprarCartao", (e) => {
             authorization: window.GUEST.code
         },
         data: JSON.stringify({
-            cartao, valor, forma_pagamento: "CREDIT_CARD", parcelas
+            cartao,
+            valor,
+            forma_pagamento: "CREDIT_CARD",
+            parcelas
         }),
         complete: (request) => {
             $(".btnConfirmar").html("Confirmar");
@@ -145,7 +152,7 @@ $("body").on("submit", "#comprarCartao", (e) => {
 
 });
 
-$(() => {
+$(async() => {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const nome_normalizado = urlParams.get('nome');
@@ -169,16 +176,6 @@ $(() => {
         }
     });
 
-
-    function inputHandler(masks, max, event) {
-        var c = event.target;
-        var v = c.value.replace(/\D/g, '');
-        var m = c.value.length > max ? 1 : 0;
-        VMasker(c).unMask();
-        VMasker(c).maskPattern(masks[m]);
-        c.value = VMasker.toPattern(v, masks[m]);
-    }
-
     const cpfMask = ['999.999.999-99'];
     const cpf = document.querySelector('#cpf');
     VMasker(cpf).maskPattern(cpfMask[0]);
@@ -199,6 +196,8 @@ $(() => {
     VMasker(cvv).maskPattern(cvvMask[0]);
     // cpf.addEventListener('input', inputHandler.bind(undefined, cvvMask, 14), false);
 
+    const guest = await getGuest(false);
+    if (guest)
+        $("#fieldNome").hide();
+
 });
-
-

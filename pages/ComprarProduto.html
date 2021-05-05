@@ -42,8 +42,8 @@
                 <h5 id="tituloProduto"></h5>
                 <h4 id="valorProduto"></h4>
             </div>
-        
-        
+
+
             <ul class="nav justify-content-center mt-4" id="myTab" role="tablist">
                 <li class="nav-item col-6" style="height: 90px;">
                     <a data-toggle="tab" href="#tabBoleto" class="w-100 h-100 btn btn-dark active">
@@ -56,14 +56,18 @@
                     </a>
                 </li>
             </ul>
-        
+
             <div class="container mt-3 tab-content" id="myTabContent">
                 <input type="hidden" id="valor">
                 <input type="hidden" id="produto">
-        
+
                 <div class="tab-pane fade show active" id="tabBoleto" role="tabBoleto">
-        
+
                     <form id="comprarBoleto">
+                        <div class="form-group" id="fieldNome">
+                            <label for="nome">Nome Completo</label>
+                            <input type="text" required class="form-control" id="nome" placeholder="Nome">
+                        </div>
                         <div class="form-group">
                             <label for="email">Email</label>
                             <input type="email" required class="form-control" id="email" placeholder="Email">
@@ -72,13 +76,13 @@
                             <label for="cpf">CPF</label>
                             <input type="text" required class="form-control" id="cpf" placeholder="CPF">
                         </div>
-        
-        
+
+
                         <button type="submit" class="btn btn-dark btnConfirmar">Confirmar</button>
                     </form>
-        
+
                 </div>
-        
+
                 <div class="tab-pane fade" id="tabCartao" role="tabCartao">
                     <form id="comprarCartao">
                         <div class="row">
@@ -126,7 +130,7 @@
                         <button type="submit" class="btn btn-dark btnConfirmar">Confirmar</button>
                     </form>
                 </div>
-        
+
             </div>
         </div>
 
@@ -136,12 +140,11 @@
 
     <footer class="bg-light text-center text-lg-start">
         <div class="text-center p-3 mt-5" style="background-color: rgba(0, 0, 0, 0.2)">
-            © 2020 - LeadThis 
+            © 2020 - LeadThis
         </div>
     </footer>
 
-    <div class="modal fade" id="confirmarPresenca" tabindex="-1" role="dialog" aria-labelledby="confirmarPresencaLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="confirmarPresenca" tabindex="-1" role="dialog" aria-labelledby="confirmarPresencaLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <form class="confirmarPresencaForm">

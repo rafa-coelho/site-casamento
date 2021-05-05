@@ -76,4 +76,4 @@ const Login = (codigo = "_") => new Promise((resolve, reject) => {
 });
 
 // if (document.location.pathname !== '/login')
-//     getGuest();
+// getGuest(false);

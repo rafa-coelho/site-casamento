@@ -7,7 +7,7 @@ const getPresente = () => {
         url: `/gift/${idPresente}`,
         headers: {
             "Content-Type": "application/json",
-            authorization: window.GUEST.code
+            authorization: window.GUEST ? window.GUEST.code : "ABCDEF"
         },
         complete: (request) => {
             const response = request.responseJSON;
@@ -20,6 +20,7 @@ const getPresente = () => {
                 $("#valorCodBarras").val(response.data.barcode);
 
             } else {
+
                 notificacao("Ops!", response.errors[0].msg);
                 setTimeout(() => {
                     document.location.href = `/`;
