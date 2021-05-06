@@ -128,7 +128,7 @@ $("body").on("submit", "#comprarCartao", (e) => {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            authorization: window.GUEST.code
+            authorization: window.GUEST ? window.GUEST.code : "ABCDEF"
         },
         data: JSON.stringify({
             cartao,
