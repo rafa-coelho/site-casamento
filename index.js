@@ -19,7 +19,7 @@ const directories = ["System", "classes"];
 directories.forEach(dir => {
     try {
         const files = fs.readdirSync(dir);
-        files.forEach(function (file) {
+        files.forEach(function(file) {
             const Class = require(`./${dir}/${file}`);
             global[file.split(".")[0]] = Class;
         });
@@ -64,7 +64,7 @@ app.use(`/src`, express.static(path.resolve(__dirname, 'pages/src')));
 
 const port = 3000;
 
-app.listen(port, async () => {
+app.listen(port, async() => {
     console.log("--------------------------------------------");
     for (let index = 0; index < 10; index++) console.log("\n");
     console.clear();
