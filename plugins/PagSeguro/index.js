@@ -2,7 +2,7 @@ const axios = require("axios");
 
 class PagSeguro {
 
-    constructor(token = PS_TOKEN, sandbox = !PROD) {
+    constructor(token = PS_TOKEN, sandbox = process.env.NODE_ENV !== 'prod') {
         axios.defaults.baseURL = sandbox ? "https://sandbox.api.pagseguro.com/" : "https://api.pagseguro.com/";
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
         axios.defaults.headers.post['Content-Type'] = 'application/json';
@@ -90,7 +90,7 @@ class PagSeguro {
                 paid_at: response.paid_at
             };
 
-            if(this.payment_type === "BOLETO"){
+            if (this.payment_type === "BOLETO") {
                 this.retorno.boleto = {
                     id: response.payment_method.boleto.id,
                     barcode: response.payment_method.boleto.barcode,
