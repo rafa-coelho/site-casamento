@@ -100,7 +100,7 @@ class PagSeguro {
             }
 
         } catch (e) {
-            console.log(e.response)
+            console.log(JSON.stringify(e.response.data));
             this.retorno = e.response.data;
         } finally {
             return this.retorno;
