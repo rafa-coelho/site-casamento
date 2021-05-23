@@ -1,5 +1,5 @@
-const PagSeguro = require('../plugins/PagSeguro');
-const Twilio = require('../plugins/Twilio');
+// const PagSeguro = require('../plugins/PagSeguro');
+var PagSeguro = require('node-pagseguro');
 
 const calcularValorTotal = (valor, parcelas) => {
     const fator = [
@@ -16,13 +16,13 @@ const calcularValorTotal = (valor, parcelas) => {
         { parcelas: 11, fator: 0.10212 },
         { parcelas: 12, fator: 0.09450 }
     ];
-    
+
     return (valor * fator.find(x => x.parcelas === parcelas).fator) * parcelas;
 };
 
 module.exports = (app) => {
 
-    app.get(`/product/category/:cat`, async (req, res) => {
+    app.get(`/product/category/:cat`, async(req, res) => {
         const { params } = req;
         const resp = {
             status: 0,
@@ -46,7 +46,7 @@ module.exports = (app) => {
         res.send(resp);
     });
 
-    app.get(`/product/:name`, async (req, res) => {
+    app.get(`/product/:name`, async(req, res) => {
         const { params } = req;
 
         const resp = {
@@ -63,13 +63,13 @@ module.exports = (app) => {
             });
             return res.status(404).send(resp);
         }
-        
+
         resp.status = 1;
         resp.data = produto;
         res.send(resp);
     });
 
-    app.post(`/product/:id`, async (req, res) => {
+    app.post(`/product/:id`, async(req, res) => {
         const { headers, params, body } = req;
         const resp = {
             status: 0,
@@ -111,17 +111,17 @@ module.exports = (app) => {
         });
 
         if (body.forma_pagamento === "CREDIT_CARD") {
-            if(!body.parcelas){
+            if (!body.parcelas) {
                 resp.errors.push({
                     msg: `O campo 'parcelas' é obrigatório!`
                 });
             }
 
-            if(!body.cartao){
+            if (!body.cartao) {
                 resp.errors.push({
                     msg: `O campo 'cartao' é obrigatório!`
                 });
-            }else{
+            } else {
                 ["numero", "cvv", "mes", "ano", "nome"].forEach(campo => {
                     if (!body.cartao[campo]) {
                         resp.errors.push({
@@ -133,7 +133,7 @@ module.exports = (app) => {
         }
 
         if (body.forma_pagamento === "BOLETO") {
-            [ 'nome', 'cpf', 'email' ].forEach(campo => {
+            ['nome', 'cpf', 'email'].forEach(campo => {
                 if (!body[campo]) {
                     resp.errors.push({
                         msg: `O campo 'boleto.${campo}' é obrigatório!`
@@ -146,59 +146,100 @@ module.exports = (app) => {
             return res.status(400).send(resp);
         }
 
-        let valor = parseFloat(body.valor.toString().replace(',', '.')).toFixed(2);
-        const pag = new PagSeguro();
+        let valor = parseFloat(body.valor.toString().replace(',', '.'));
 
-        if(body.forma_pagamento === "CREDIT_CARD"){
-            // Validar Cartão
-            const cartao = {
-                numero: body.cartao.numero.replace(/\D+/g, ""),
-                mes: body.cartao.mes,
-                ano: body.cartao.ano,
-                cvv: body.cartao.cvv,
-                nome: body.cartao.nome
-            };
-            valor = calcularValorTotal(valor, Number(body.parcelas))
-            
-            pag.Parcelas(Number(body.parcelas));
-            pag.Cartao(cartao);
+        var payment = new PagSeguro({
+            email: process.env.PS_EMAIL,
+            token: process.env.NODE_ENV === 'prod' ? process.env.PS_TOKEN : process.env.PS_TOKEN_SB,
+            sandbox: process.env.NODE_ENV !== 'prod',
+            sandbox_email: '123123123123123@sandbox.pagseguro.com.br'
+        });
+
+        payment.setShipping({
+            street: body.endereco ? body.endereco.street : 'Rua da Cançoneta',
+            number: body.endereco ? body.endereco.number : '44',
+            district: body.endereco ? body.endereco.district : 'Itaim Paulista',
+            city: body.endereco ? body.endereco.city : 'São Paulo',
+            state: body.endereco ? body.endereco.state : 'SP',
+            postal_code: body.endereco ? body.endereco.postal_code : '08141008',
+            same_for_billing: true
+        });
+
+        payment.setSender({
+            name: body.nome,
+            email: body.email,
+            cpf_cnpj: "44957569827",
+            area_code: "11",
+            phone: "976092174"
+        });
+
+        if (body.forma_pagamento === "CREDIT_CARD") {
+            payment.setCreditCardHolder({
+                name: body.cartao.nome,
+                cpf_cnpj: body.cpf || "44957569827",
+                area_code: "11",
+                phone: "976092174",
+                birth_date: body.nascimento
+            });
         }
 
-        if(body.forma_pagamento === "BOLETO"){
-            const user = {
-                nome: body.nome,
-                cpf: body.cpf,
-                email: body.email,
-                endereco: body.endereco
+        payment.addItem({
+            description: 'Presente',
+            value: valor,
+            qtde: 1
+        });
+
+        const sendTransaction = () => new Promise((resolve) => {
+            const data = {
+                method: body.forma_pagamento === "CREDIT_CARD" ? "creditCard" : "boleto", //'boleto' ou 'creditCard'
+                value: valor,
+                installments: Number(body.parcelas) || 1, //opcional, padrão 1
+                hash: body.sender_hash,
             };
-            pag.Boleto(user);
-        }
-        
-        const valor_centavos = valor.toString().replace(/\./g, "");
-        const pagamento = await pag.Cobrar(valor_centavos);
-        
-        
-        if(![ "WAITING", "PAID" ].includes(pagamento.status)){
+
+            if (body.forma_pagamento === "CREDIT_CARD") {
+                data.credit_card_token = body.card_token;
+            }
+
+            payment.sendTransaction(data, function(err, data) {
+                if (err) {
+                    resolve(Array.isArray(err) ? err[0] : err);
+                } else {
+                    resolve(data);
+                }
+            });
+
+        });
+
+        const pagamento = await sendTransaction();
+
+        if (pagamento.status !== '1') {
+
+            let message = "Erro ao realizar cobrança";
+
+            message = pagamento.message.indexOf('sender name invalid value') >= 0 ? 'O seu nome está correto?' : message;
+            message = pagamento.message.indexOf('credit card holder cpf') >= 0 ? 'O seu CPF está correto?' : message;
+
             resp.errors.push({
-                msg: "Erro ao realizar cobrança"
+                msg: message
             });
             return res.status(500).send(resp);
         }
-        
+
         const presente = {
             id: Hash.generateId(),
             convidado: convidado.id,
             produto: produto.id,
             valor: parseFloat(body.valor.toString().replace(',', '.')).toFixed(2),
             forma_pagamento: body.forma_pagamento,
-            recibo: pagamento.id,
-            barcode: pagamento.boleto ? pagamento.boleto.barcode : '',
+            recibo: pagamento.code,
+            barcode: pagamento.paymentLink,
             status: pagamento.status
         };
-        
+
         const createPresente = await Presente.Create(presente);
 
-        if(createPresente.status !== 1){
+        if (createPresente.status !== 1) {
             pag.Extorno();
             resp.errors.push({
                 msg: "Erro ao guardar pagamento"
@@ -206,16 +247,15 @@ module.exports = (app) => {
             return res.status(500).send(resp);
         }
 
-        
-        if(body.forma_pagamento === "BOLETO"){
+
+        if (body.forma_pagamento === "BOLETO") {
             const mail = new Mailer();
             mail.to = body.email;
             mail.subject = "R&A - Obrigado pelo presente - BOLETO";
             mail.message = Mailer.Boleto(convidado, req.protocol + '://' + req.get('host') + `/compra-confirmada?id=${presente.id}`);
             await mail.Send();
         }
-        
-        // Twilio(`Oi, ${convidado.nome.split(' ')[0]}!\nRecebemos o seu presente!\n\nMuito obrigado ♥`, (convidado.whatsapp || "11976092174").replace(/\D+/g, ''));
+
 
         resp.status = 1;
         resp.msg = "Item comprado com sucesso!";

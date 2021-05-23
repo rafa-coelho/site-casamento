@@ -14,10 +14,12 @@ const getPresente = () => {
 
             if (response.status == 1) {
 
-                JsBarcode('#codBarras', response.data.barcode, {
-                    // displayValue: false
-                });
-                $("#valorCodBarras").val(response.data.barcode);
+                $("#boleto").html(`<a class="btn btn-success" href="${response.data.barcode}">Clique aqui</a>`);
+
+                // JsBarcode('#codBarras', response.data.barcode, {
+                //     // displayValue: false
+                // });
+                // $("#valorCodBarras").val(response.data.barcode);
 
             } else {
 

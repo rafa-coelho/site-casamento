@@ -20,6 +20,7 @@ directories.forEach(dir => {
     try {
         const files = fs.readdirSync(dir);
         files.forEach(function(file) {
+            console.log(file)
             const Class = require(`./${dir}/${file}`);
             global[file.split(".")[0]] = Class;
         });
@@ -70,5 +71,12 @@ app.listen(port, async() => {
     console.clear();
     console.log(`Rodando na porta ${port}`);
 
+    // const axios = require('axios');
+    // const request = await axios.post(`https://ws.pagseguro.uol.com.br/v2/sessions?email=rafaelcoelho8@gmail.com&token=d6b658bb-1846-4013-bb1f-43f250075dad812a01df46a89990703819be7da5b37cdfaa-9bdd-4118-95a0-03baafd200a5`);
+
+    // var response = await Hash.xml2json(request.data);
+    // const id = response.session.id[0];
+
+    // console.log(id);
 
 });
