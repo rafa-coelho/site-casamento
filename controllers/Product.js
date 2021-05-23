@@ -168,7 +168,7 @@ module.exports = (app) => {
         payment.setSender({
             name: body.nome,
             email: body.email,
-            cpf_cnpj: "44957569827",
+            cpf_cnpj: body.cpf,
             area_code: "11",
             phone: "976092174"
         });
@@ -176,7 +176,7 @@ module.exports = (app) => {
         if (body.forma_pagamento === "CREDIT_CARD") {
             payment.setCreditCardHolder({
                 name: body.cartao.nome,
-                cpf_cnpj: body.cpf || "44957569827",
+                cpf_cnpj: body.cpf,
                 area_code: "11",
                 phone: "976092174",
                 birth_date: body.nascimento
