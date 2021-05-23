@@ -62,7 +62,6 @@
                 <input type="hidden" id="produto">
 
                 <div class="tab-pane fade show active" id="tabBoleto" role="tabBoleto">
-
                     <form id="comprarBoleto">
                         <div class="form-group" id="fieldNome">
                             <label for="nome">Nome Completo</label>
@@ -77,6 +76,11 @@
                             <input type="text" required class="form-control" id="cpf" placeholder="CPF">
                         </div>
 
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <span class="text-muted">(A geração do Boleto adiciona R$ 1,00 ao valor do item)</span>
+                            </div>
+                        </div>
 
                         <button type="submit" class="btn btn-dark btnConfirmar">Confirmar</button>
                     </form>
