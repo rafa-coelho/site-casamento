@@ -219,6 +219,7 @@ module.exports = (app) => {
 
             message = pagamento.message.indexOf('sender name invalid value') >= 0 ? 'O seu nome está correto?' : message;
             message = pagamento.message.indexOf('credit card holder cpf') >= 0 ? 'O seu CPF está correto?' : message;
+            message = pagamento.message.indexOf('sender cpf invalid value') >= 0 ? 'O seu CPF está correto?' : message;
 
             resp.errors.push({
                 msg: message
