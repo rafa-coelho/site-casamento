@@ -296,10 +296,10 @@ $(async() => {
             if (response.status == 1) {
                 $("#imagem").attr("src", `/media/${response.data.imagem}`)
                 $("#tituloProduto").text(response.data.nome);
-                $("#valorProduto").text("R$ " + response.data.valor_minimo.replace('.', ','));
-                $("#valor").val(response.data.valor_minimo);
+                $("#valorProduto").text("R$ " + response.data.valor_maximo.replace('.', ','));
+                $("#valor").val(response.data.valor_maximo);
                 $("#produto").val(response.data.id);
-                calcularParcelas(response.data.valor_minimo);
+                calcularParcelas(response.data.valor_maximo);
             }
         }
     });
