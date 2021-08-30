@@ -29,34 +29,6 @@ directories.forEach(dir => {
     }
 });
 
-// app.use(async (req, res, next) => {
-//     const { headers, body } = req;
-//     const resp = {
-//         status: 0,
-//         msg: "",
-//         data: null,
-//         errors: []
-//     };
-
-//     if (!headers['authorization']) {
-//         resp.errors.push({
-//             msg: "Informe o código do convidado"
-//         });
-//         return res.status(403).send(resp);
-//     }
-
-//     const convidado = await Convidado.GetFirst(`code = '${headers['authorization']}'`);
-
-//     if (!convidado) {
-//         resp.errors.push({
-//             msg: "Convidado não encontrado!"
-//         });
-//         return res.status(403).send(resp);
-//     }
-
-//     res.convidado = convidado;
-//     next();
-// });
 
 consign().include('controllers').into(app);
 
@@ -70,13 +42,4 @@ app.listen(port, async() => {
     for (let index = 0; index < 10; index++) console.log("\n");
     console.clear();
     console.log(`Rodando na porta ${port}`);
-
-    // const axios = require('axios');
-    // const request = await axios.post(`https://ws.pagseguro.uol.com.br/v2/sessions?email=rafaelcoelho8@gmail.com&token=d6b658bb-1846-4013-bb1f-43f250075dad812a01df46a89990703819be7da5b37cdfaa-9bdd-4118-95a0-03baafd200a5`);
-
-    // var response = await Hash.xml2json(request.data);
-    // const id = response.session.id[0];
-
-    // console.log(id);
-
 });
